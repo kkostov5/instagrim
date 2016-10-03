@@ -11,44 +11,37 @@
 <html>
     <head>
         <title>Instagrim</title>
-        <link rel="stylesheet" type="text/css" href="Styles.css" />
+        <link rel="stylesheet" type="text/css" href="Styles.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
         <header>
-            <h1>InstaGrim ! </h1>
-            <h2>Your world in Black and White</h2>
+            <h1>InstaGrim</h1>
         </header>
-        <nav>
-            <ul>
+        <div>
 
-               
-                <li><a href="upload.jsp">Upload</a></li>
-                    <%
-                        
-                        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-                        if (lg != null) {
-                            String UserName = lg.getUsername();
-                            if (lg.getlogedin()) {
-                    %>
 
-                <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
-                    <%}
-                            }else{
-                                %>
-                 <li><a href="register.jsp">Register</a></li>
-                <li><a href="login.jsp">Login</a></li>
+            <%
+
+                LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+                if (lg != null) {
+                    if (lg.getlogedin()) {
+            %>
+            <button type="button"><a href="UserProfile.jsp">Profile</a></button></br>
+            <button type="button"><a href="upload.jsp">Upload</a></button></br>
+            <button type="button"><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></button>
+                <%}
+                } else {
+                %>
+
+                <button type="button"><a href="register.jsp">Register</a></button></br>
+                <button type="button"><a href="login.jsp">Login</a></button>
                 <%
-                                        
-                            
                     }%>
-            </ul>
-        </nav>
+        </div>
         <footer>
-            <ul>
-                <li class="footer"><a href="/Instagrim">Home</a></li>
-                <li>&COPY; Andy C</li>
-            </ul>
+            &COPY; Krasimir Kostov
         </footer>
+
     </body>
 </html>
