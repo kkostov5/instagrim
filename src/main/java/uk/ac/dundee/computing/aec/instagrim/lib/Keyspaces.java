@@ -46,7 +46,7 @@ public final class Keyspaces {
                      + "     password text,\n"
                     + "      first_name text,\n"
                     + "      last_name text,\n"
-                    + "      email set<text>,\n"
+                    + "      email text,\n"
                     + "      addresses  map<text, frozen <address>>\n"
                     + "  );";
             Session session = c.connect();
@@ -66,6 +66,7 @@ public final class Keyspaces {
             System.out.println("" + CreatePicTable);
 
             try {
+                
                 SimpleStatement cqlQuery = new SimpleStatement(CreatePicTable);
                 session.execute(cqlQuery);
             } catch (Exception et) {
@@ -88,15 +89,18 @@ public final class Keyspaces {
             }
             System.out.println("" + CreateUserProfile);
             try {
+                SimpleStatement cqlQuery2 = new SimpleStatement("DROP TABLE instagrim.userpiclist");
+                session.execute(cqlQuery2);
                 SimpleStatement cqlQuery = new SimpleStatement(CreateUserProfile);
                 session.execute(cqlQuery);
+                
             } catch (Exception et) {
                 System.out.println("Can't create Address Profile " + et);
             }
             session.close();
 
         } catch (Exception et) {
-            System.out.println("Other keyspace or coulm definition error" + et);
+            System.out.println("Other keyspace or could definition error" + et);
         }
 
     }

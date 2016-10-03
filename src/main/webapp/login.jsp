@@ -15,32 +15,29 @@
     </head>
     <body>
         <header>
-        <h1>InstaGrim ! </h1>
-        <h2>Your world in Black and White</h2>
+            <h1>InstaGrim</h1>
         </header>
-        <nav>
-            <ul>
-                
-                <li><a href="/Instagrim/Images/majed">Sample Images</a></li>
-            </ul>
-        </nav>
-       
-        <article>
-            <h3>Login</h3>
-            <form method="POST"  action="Login">
-                <ul>
-                    <li>User Name <input type="text" name="username"></li>
-                    <li>Password <input type="password" name="password"></li>
-                </ul>
-                <br/>
-                <input type="submit" value="Login"> 
-            </form>
+        <div>
 
-        </article>
+            <article>
+                <h3>Login</h3>
+                <form method="POST"  action="Login">
+                    <table>
+                        <tr>
+                            <td>User Name</td> <td><input type="text" name="username"></td>
+                        </tr>
+                        <tr>
+                            <td>Password</td><td><input type="password" name="password"></td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <input type="submit" value="Login"> 
+                </form>
+
+            </article>
+        </div>
         <footer>
-            <ul>
-                <li class="footer"><a href="/Instagrim">Home</a></li>
-            </ul>
+            &COPY; Krasimir Kostov
         </footer>
     </body>
 </html>

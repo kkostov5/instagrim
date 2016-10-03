@@ -9,8 +9,85 @@ and open the template in the editor.
 */
 
 
-nav {
-    text-align: left;
+body{
+    background-color: #f2f6fc;
+}
+header, footer {
+    padding: 0.5em;
+    color: white;
+    -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+    -webkit-text-stroke-width: 0.7px;
+    -webkit-text-stroke-color: black;
+    clear: left;
+    text-align: center;
+}
+div {
+    padding-bottom: 0;
+    height: 250px;
+    width: 24%;
+    margin: 15% 38% 0 38%;
+    text-align: center;
     border: 2px;
-    float: right;
+    border-radius: 3%;
+    background-color: rgb(255, 255, 255);
+    position: relative;
+    display:block;
+    overflow: auto;
+}
+button{
+    background: #ffffff;
+    background-image: -webkit-linear-gradient(top, #ffffff, #ffffff);
+    background-image: -moz-linear-gradient(top, #ffffff, #ffffff);
+    background-image: -ms-linear-gradient(top, #ffffff, #ffffff);
+    background-image: -o-linear-gradient(top, #ffffff, #ffffff);
+    background-image: linear-gradient(to bottom, #ffffff, #ffffff);
+    -webkit-border-radius: 7;
+    -moz-border-radius: 7;
+    border-radius: 7px;
+    font-family: Arial;
+    color: #000000;
+    font-size: 15px;
+    padding: 5px 10px 5px 10px;
+    border: solid #000000 1px;
+    margin-bottom: 2%;
+    text-decoration: none;
+}
+
+button:hover {
+    background: #ffffff;
+    background-image: -webkit-linear-gradient(top, #ffffff, #bdbdbd);
+    background-image: -moz-linear-gradient(top, #ffffff, #bdbdbd);
+    background-image: -ms-linear-gradient(top, #ffffff, #bdbdbd);
+    background-image: -o-linear-gradient(top, #ffffff, #bdbdbd);
+    background-image: linear-gradient(to bottom, #ffffff, #bdbdbd);
+    text-decoration: none;
+
+}
+table{
+    align:center;
+    margin:auto;
+}
+tr{
+    padding-bottom:3px;
+}
+input{
+    list-style-position: initial;
+}
+header{
+    position:fixed;
+    left:0px;
+    top:0px;
+    height:10%;
+    width:100%;
+}
+footer {
+    position:fixed;
+    left:0px;
+    bottom:0px;
+    height:3%;
+    width:100%;
+}
+a{
+    text-decoration: none;
+    color:inherit;
 }

@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package uk.ac.dundee.computing.aec.instagrim.servlets;
 
 import com.datastax.driver.core.Cluster;
@@ -19,24 +18,23 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.models.User;
-import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
 import uk.ac.dundee.computing.aec.instagrim.stores.Profile;
-
-
+import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
 
 /**
  *
- * @author Administrator
+ * @author Krasi
  */
-@WebServlet(name = "Login", urlPatterns = {"/Login"})
-public class Login extends HttpServlet {
+@WebServlet(name = "Profile", urlPatterns = {"/Profile","/Profile/*"})
+public class Account extends HttpServlet {
 
-    Cluster cluster=null;
+     Cluster cluster=null;
 
 
     public void init(ServletConfig config) throws ServletException {
         // TODO Auto-generated method stub
         cluster = CassandraHosts.getCluster();
+        
     }
 
     /**
@@ -48,37 +46,36 @@ public class Login extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String username=request.getParameter("username");
-        String password=request.getParameter("password");
+    /*    HttpSession session=request.getSession();
+        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+        String username= lg.getUsername();
+        //String password=request.getParameter("password");
         
         User us=new User();
         
         us.setCluster(cluster);
         
-        boolean isValid=us.IsValidUser(username, password);
-        HttpSession session=request.getSession();
-        System.out.println("Session in servlet "+session);
-        if (isValid){
-            LoggedIn lg= new LoggedIn();
-            Profile prof = new Profile();
-            lg.setLogedin();
-            lg.setUsername(username);
-            prof.setFirstname(us.getFirstname(username));
-            prof.setLastname(us.getLastname(username));
-            prof.setEmail(us.getEmail(username));
-            session.setAttribute("LoggedIn", lg);
-            session.setAttribute("Profile", prof);
-            System.out.println("Session in servlet "+session);
-            RequestDispatcher rd=request.getRequestDispatcher("index.jsp");
-	    rd.forward(request,response);
-            
-        }else{
-            response.sendRedirect("/Instagrim/index.jsp");
-        }
+       // boolean isValid=us.IsValidUser(username, password);
         
+        System.out.println("Session in servlet "+session);
+        //if (isValid){
+            Profile profile = new Profile();
+            //LoggedIn lg= new LoggedIn();
+            profile.setFirstname(us.getFirstname(username));
+            session.setAttribute("Profile", profile);
+            System.out.println("Session in servlet "+session);
+            RequestDispatcher rd=request.getRequestDispatcher("UserProfile.jsp");
+            rd.forward(request,response);
+            
+       // }else{
+          //  response.sendRedirect("/Instagrim/index.jsp");
+       // }
+        */
+            //RequestDispatcher rd=request.getRequestDispatcher("UserProfile.jsp");
+            //rd.forward(request,response);
+    //response.sendRedirect("/Instagrim/UserProfile.jsp");
     }
 
     /**
