@@ -33,21 +33,28 @@ public final class Keyspaces {
             String Createuserpiclist = "CREATE TABLE if not exists instagrim.userpiclist (\n"
                     + "picid uuid,\n"
                     + "user varchar,\n"
+                    + "profilepic boolean\n"
                     + "pic_added timestamp,\n"
                     + "PRIMARY KEY (user,pic_added)\n"
                     + ") WITH CLUSTERING ORDER BY (pic_added desc);";
-            String CreateAddressType = "CREATE TYPE if not exists instagrim.address (\n"
+            /*String CreateAddressType = "CREATE TYPE if not exists instagrim.address (\n"
                     + "      street text,\n"
                     + "      city text,\n"
                     + "      zip int\n"
-                    + "  );";
+                    + "  );";*/
             String CreateUserProfile = "CREATE TABLE if not exists instagrim.userprofiles (\n"
                     + "      login text PRIMARY KEY,\n"
                      + "     password text,\n"
                     + "      first_name text,\n"
                     + "      last_name text,\n"
                     + "      email text,\n"
-                    + "      addresses  map<text, frozen <address>>\n"
+                    + "      picid uuid\n"
+                   // + "     addresses  map<text, frozen <address>>\n"
+                    + "  );";
+            String CreatePictureComments = "CREATE TABLE if not exists instagrim.piccomments (\n"
+                    + "      user text ,\n"
+                    + "      comment text,\n"
+                    + "      picid uuid PRIMARY KEY\n"
                     + "  );";
             Session session = c.connect();
             try {
@@ -66,7 +73,8 @@ public final class Keyspaces {
             System.out.println("" + CreatePicTable);
 
             try {
-                
+                //SimpleStatement cqlQuery1 = new SimpleStatement("DROP TABLE  instagrim.Pics;");
+                //session.execute(cqlQuery1);
                 SimpleStatement cqlQuery = new SimpleStatement(CreatePicTable);
                 session.execute(cqlQuery);
             } catch (Exception et) {
@@ -75,22 +83,34 @@ public final class Keyspaces {
             System.out.println("" + Createuserpiclist);
 
             try {
+                //SimpleStatement cqlQuery1 = new SimpleStatement("DROP TABLE  instagrim.userpiclist;");
+                //session.execute(cqlQuery1);
                 SimpleStatement cqlQuery = new SimpleStatement(Createuserpiclist);
                 session.execute(cqlQuery);
             } catch (Exception et) {
                 System.out.println("Can't create user pic list table " + et);
             }
-            System.out.println("" + CreateAddressType);
+            /*System.out.println("" + CreateAddressType);
             try {
                 SimpleStatement cqlQuery = new SimpleStatement(CreateAddressType);
                 session.execute(cqlQuery);
             } catch (Exception et) {
                 System.out.println("Can't create Address type " + et);
+            }*/
+            System.out.println("" + CreatePictureComments);
+            try {
+                //SimpleStatement cqlQuery1 = new SimpleStatement("DROP TABLE  instagrim.piccomments;");
+                //session.execute(cqlQuery1);
+                SimpleStatement cqlQuery = new SimpleStatement(CreatePictureComments);
+                session.execute(cqlQuery);
+                
+            } catch (Exception et) {
+                System.out.println("Can't create Picture Comments " + et);
             }
             System.out.println("" + CreateUserProfile);
             try {
-                SimpleStatement cqlQuery2 = new SimpleStatement("DROP TABLE instagrim.userpiclist");
-                session.execute(cqlQuery2);
+                //SimpleStatement cqlQuery1 = new SimpleStatement("DROP TABLE  instagrim.userprofiles;");
+                //session.execute(cqlQuery1);
                 SimpleStatement cqlQuery = new SimpleStatement(CreateUserProfile);
                 session.execute(cqlQuery);
                 

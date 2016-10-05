@@ -1,10 +1,9 @@
 <%-- 
-    Document   : UsersPics
-    Created on : Sep 24, 2014, 2:52:48 PM
-    Author     : Administrator
+    Document   : SingleImage
+    Created on : Oct 5, 2016, 7:01:11 PM
+    Author     : Krasi
 --%>
 
-<%@page import="java.util.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="uk.ac.dundee.computing.aec.instagrim.stores.*" %>
 <!DOCTYPE html>
@@ -47,5 +46,5 @@
     <footer>
         &COPY; Krasimir Kostov
     </footer>
-</body>
+    </body>
 </html>

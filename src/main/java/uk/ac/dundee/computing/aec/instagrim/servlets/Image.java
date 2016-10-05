@@ -122,10 +122,28 @@ public class Image extends HttpServlet {
         for (int length = 0; (length = input.read(buffer)) > 0;) {
             out.write(buffer, 0, length);
         }
+        if(type==Convertors.DISPLAY_PROCESSED)
+        {
+            String[][] comments= tm.getComments(java.util.UUID.fromString(Image));
+            int i=0;
+            while(comments[i][0]!=null)
+            {
+                String temp = comments[i][0]+" - "+comments[i][1];
+                out.write(temp.getBytes());
+                i++;
+            }
+        }
         out.close();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        insertPic(request,response);
+            RequestDispatcher rd = request.getRequestDispatcher("/upload.jsp");
+             rd.forward(request, response);
+
+    }
+    
+    protected void insertPic(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         for (Part part : request.getParts()) {
             System.out.println("Part Name " + part.getName());
 
@@ -150,8 +168,7 @@ public class Image extends HttpServlet {
 
                 is.close();
             }
-            RequestDispatcher rd = request.getRequestDispatcher("/upload.jsp");
-             rd.forward(request, response);
+            
         }
 
     }

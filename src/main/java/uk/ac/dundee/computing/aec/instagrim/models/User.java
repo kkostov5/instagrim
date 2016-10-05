@@ -140,7 +140,7 @@ public class User {
         }catch (UnsupportedEncodingException | NoSuchAlgorithmException et){
             System.out.println("Can't check your password");
             return false;
-        }*/
+        }*//*
         String email =null;
         Session session = cluster.connect("instagrim");
         PreparedStatement ps = session.prepare("select email from userprofiles where login =?");
@@ -157,7 +157,8 @@ public class User {
                  email = row.getString("email");
             }
             return email;
-        }
+        }*/
+        return null;
     }
        public void setCluster(Cluster cluster) {
         this.cluster = cluster;

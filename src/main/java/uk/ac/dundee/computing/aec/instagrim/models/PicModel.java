@@ -71,7 +71,6 @@ public class PicModel {
             ByteBuffer processedbuf=ByteBuffer.wrap(processedb);
             int processedlength=processedb.length;
             Session session = cluster.connect("instagrim");
-
             PreparedStatement psInsertPic = session.prepare("insert into pics ( picid, image,thumb,processed, user, interaction_time,imagelength,thumblength,processedlength,type,name) values(?,?,?,?,?,?,?,?,?,?,?)");
             PreparedStatement psInsertPicToUser = session.prepare("insert into userpiclist ( picid, user, pic_added) values(?,?,?)");
             BoundStatement bsInsertPic = new BoundStatement(psInsertPic);
@@ -94,7 +93,6 @@ public class PicModel {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ImageIO.write(thumbnail, type, baos);
             baos.flush();
-            
             byte[] imageInByte = baos.toByteArray();
             baos.close();
             return imageInByte;
@@ -106,6 +104,7 @@ public class PicModel {
     
     public byte[] picdecolour(String picid,String type) {
         try {
+            
             BufferedImage BI = ImageIO.read(new File("/var/tmp/instagrim/" + picid));
             BufferedImage processed = createProcessed(BI);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -210,6 +209,39 @@ public class PicModel {
         p.setPic(bImage, length, type);
 
         return p;
+
+    }
+    
+    public String[][] getComments( java.util.UUID picid) {
+        Session session = cluster.connect("instagrim");
+        String[][] get = null;
+        try {
+            ResultSet rs = null;
+            PreparedStatement ps = null;
+            ps = session.prepare("select user,comment from piccomments where picid =?");
+            BoundStatement boundStatement = new BoundStatement(ps);
+            rs = session.execute( // this is where the query is executed
+                    boundStatement.bind( // here you are binding the 'boundStatement'
+                            picid));
+
+            if (rs.isExhausted()) {
+                System.out.println("No Image returned");
+                return null;
+            } else {
+                int i=0;
+                for (Row row : rs) {
+                        get[i][0] = row.getString("user");
+                        get[i][1] = row.getString("comment");
+                        i++;
+                }
+            }
+        } catch (Exception et) {
+            System.out.println("Can't get Pic" + et);
+            return null;
+        }
+        session.close();
+
+        return get;
 
     }
 

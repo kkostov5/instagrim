@@ -10,6 +10,7 @@ public class Profile {
     String Firstname = null;
     String Lastname = null;
     String email = null;
+    Pic image = new Pic();
     public void profile() {
 
     }
@@ -35,5 +36,11 @@ public class Profile {
 
     public String getEmail() {
         return email;
+    }
+    public void setPic(Pic user) {
+        this.image = user;
+    }
+    public Pic getPic() {
+        return image;
     }
 }

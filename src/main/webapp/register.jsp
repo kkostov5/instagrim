@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="uk.ac.dundee.computing.aec.instagrim.stores.*" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,6 +19,11 @@
         </header>
         <div>
             <article>
+                <%
+
+                LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+                if (lg == null) {
+            %>
                 <h3>Register as user</h3>
                 <form method="POST"  action="Register">
                     <table>
@@ -28,7 +34,7 @@
                             <td>Last Name</td><td> <input type="text" name="lastname"></td>
                         </tr>
                         <tr>
-                            <td>E-mail</td><td> <input type="text" name="lastname"></td>
+                            <td>E-mail</td><td> <input type="text" name="email"></td>
                         </tr>
                         <tr>
                             <td>User Name</td><td> <input type="text" name="username"></td>
@@ -40,7 +46,13 @@
                     <br/>
                     <input type="submit" value="Register"> 
                 </form>
-
+<%
+                } else {
+                %>
+                You are already logged in.
+                <button type="button"><a href="index.jsp">Menu</a></button>
+                <%
+                    }%>
             </article>
         </div>
         <footer>

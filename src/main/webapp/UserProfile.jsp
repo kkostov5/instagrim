@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="uk.ac.dundee.computing.aec.instagrim.stores.*" %>
+<%//@page import="uk.ac.dundee.computing.aec.instagrim.pic.*" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -29,14 +30,27 @@
              <%
                  }
 else{
+            if(prof.getPic()==null)
+{
             %>
-            First name: <%=prof.getFirstname()%>
-            Last name: <%=prof.getLastname()%>
-            E-mail: <%=prof.getEmail()%>
-            First name: <%=prof.getFirstname()%>
+           <img src="../java/uk/ac/dundee/computing/aec/instagrim/pic/images.jpg" alt=""/></br>
+            First name: <%=prof.getFirstname()%><br/>
+            Last name: <%=prof.getLastname()%><br/>
+            E-mail: <%=prof.getEmail()%><br/>
+            <button type="button"><a href="/Instagrim">Home</a></button>
             <%
                  }
+else{
             %>
+            <a href="/Instagrim/Image/<%//=prof.getPic().getSUUID()%>" ><img src="/Instagrim/Thumb/<%//=prof.getPic().getSUUID()%>"></a><br/>
+            First name: <%=prof.getFirstname()%><br/>
+            Last name: <%=prof.getLastname()%><br/>
+            E-mail: <%=prof.getEmail()%><br/>
+            <button type="button"><a href="/Instagrim">Home</a></button>
+            <%
+                }}
+                %>
+                <button type="button"><a href="EditProfile.jsp">Edit Profile</a></button>
         </div>
         <footer>
             &COPY; Krasimir Kostov

@@ -10,20 +10,44 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Instagrim</title>
-        <link rel="stylesheet" type="text/css" href="Styles.css" />
+        <link rel="stylesheet" type="text/css" href="Styles.css" >
+        <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+        <script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+
     </head>
     <body>
         <header>
             <h1>InstaGrim</h1>
         </header>
         <div>
-                <!-- <li class="nav"><a href="/Instagrim/Images/majed">Sample Images</a></li> -->
+            <script type="text/javascript">
+                function readURL(input) {
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            $('#blah')
+                                    .attr('src', e.target.result)
+                                    .width(150)
+                                    .height(200);
+                        };
+
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+            </script>
+            <!-- <li class="nav"><a href="/Instagrim/Images/majed">Sample Images</a></li> -->
             <article>
                 <h3>File Upload</h3>
-                <form method="POST" enctype="multipart/form-data" action="Image">
-                    File to upload: <input type="file" name="upfile"><br/>
+                <form class="upload" method="POST" enctype="multipart/form-data" action="Image">
+                    <input type="radio" name="Filter" value="Black">Black and White<br/>
+                    <input type="radio" name="Filter" value="None">None<br/>
+                    <input type="file" name="upfile" onchange="readURL(this);"><br/>
+                    <img id="blah" src="#" alt="your image" />
+
                     <br/>
-                    <input type="submit" value="Press"> to upload the file!
+                    <%%>
+                    <input type="submit" value="Submit">
                 </form>
 
             </article>
