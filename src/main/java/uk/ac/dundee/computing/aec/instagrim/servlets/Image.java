@@ -147,7 +147,8 @@ public class Image extends HttpServlet {
     
     protected void insertPic(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-        for (Part part : request.getParts()) {
+        //for (Part part : request.getParts()) {
+            Part part = request.getPart("upfile");
             System.out.println("Part Name " + part.getName());
             String checkers = request.getParameter("profilepic");
             String type = part.getContentType();
@@ -176,8 +177,7 @@ public class Image extends HttpServlet {
                 }
                 is.close();
             }
-            
-        }
+       // }
 
     }
 

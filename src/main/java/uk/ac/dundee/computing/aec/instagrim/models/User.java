@@ -186,7 +186,7 @@ public class User {
             Convertors convertor = new Convertors();
             ResultSet rs = null;
             PreparedStatement ps = null;
-                ps = session.prepare("select thumb,imagelength,thumblength,type from pics where picid =(select picid from userpiclist where profilepic=true and user=?))");
+                ps = session.prepare("select image,imagelength,type from pics where picid =(select picid from userpiclist where profilepic=true and user=?))");
             BoundStatement boundStatement = new BoundStatement(ps);
             rs = session.execute( // this is where the query is executed
                     boundStatement.bind( // here you are binding the 'boundStatement'
@@ -198,8 +198,8 @@ public class User {
             } else {
                 for (Row row : rs) {
                     
-                        bImage = row.getBytes("thumb");
-                        length = row.getInt("thumblength");
+                        bImage = row.getBytes("image");
+                        length = row.getInt("imagelength");
                         type = row.getString("type");
 
                 }
