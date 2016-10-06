@@ -58,11 +58,6 @@ public class PicModel {
             ByteBuffer buffer = ByteBuffer.wrap(b);
             int length = b.length;
             java.util.UUID picid = convertor.getTimeUUID();
-            if(profile== true)
-            {
-                
-               // Profile prof = (Profile) request.getSession.getAttribute("Profile");
-            }
             //The following is a quick and dirty way of doing this, will fill the disk quickly !
             Boolean success = (new File("/var/tmp/instagrim/")).mkdirs();
             FileOutputStream output = new FileOutputStream(new File("/var/tmp/instagrim/" + picid));
@@ -215,6 +210,8 @@ public class PicModel {
         return p;
 
     }
+    
+    
     
     public String[][] getComments( java.util.UUID picid) {
         Session session = cluster.connect("instagrim");

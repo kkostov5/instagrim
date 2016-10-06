@@ -69,6 +69,7 @@ public class Login extends HttpServlet {
             prof.setFirstname(us.getFirstname(username));
             prof.setLastname(us.getLastname(username));
             prof.setEmail(us.getEmail(username));
+            prof.setPic(us.getProfilePic(username));
             session.setAttribute("LoggedIn", lg);
             session.setAttribute("Profile", prof);
             System.out.println("Session in servlet "+session);

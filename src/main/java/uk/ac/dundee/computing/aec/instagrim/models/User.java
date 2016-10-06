@@ -13,9 +13,12 @@ import com.datastax.driver.core.ResultSet;
 import com.datastax.driver.core.Row;
 import com.datastax.driver.core.Session;
 import java.io.UnsupportedEncodingException;
+import java.nio.ByteBuffer;
 import java.security.NoSuchAlgorithmException;
 
 import uk.ac.dundee.computing.aec.instagrim.lib.AeSimpleSHA1;
+import uk.ac.dundee.computing.aec.instagrim.lib.Convertors;
+import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
 
 /**
  *
@@ -172,6 +175,45 @@ public class User {
             }
             return email;
         }
+    }
+    
+    public Pic getProfilePic(String username) {
+        Session session = cluster.connect("instagrim");
+        ByteBuffer bImage = null;
+        String type = null;
+        int length = 0;
+        try {
+            Convertors convertor = new Convertors();
+            ResultSet rs = null;
+            PreparedStatement ps = null;
+                ps = session.prepare("select thumb,imagelength,thumblength,type from pics where picid =(select picid from userpiclist where profilepic=true and user=?))");
+            BoundStatement boundStatement = new BoundStatement(ps);
+            rs = session.execute( // this is where the query is executed
+                    boundStatement.bind( // here you are binding the 'boundStatement'
+                            username));
+
+            if (rs.isExhausted()) {
+                System.out.println("No Images returned");
+                return null;
+            } else {
+                for (Row row : rs) {
+                    
+                        bImage = row.getBytes("thumb");
+                        length = row.getInt("thumblength");
+                        type = row.getString("type");
+
+                }
+            }
+        } catch (Exception et) {
+            System.out.println("Can't get Pic" + et);
+            return null;
+        }
+        session.close();
+        Pic p = new Pic();
+        p.setPic(bImage, length, type);
+
+        return p;
+
     }
        public void setCluster(Cluster cluster) {
         this.cluster = cluster;

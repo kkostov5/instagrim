@@ -42,7 +42,7 @@ else{
                  }
 else{
             %>
-            <a href="/Instagrim/Image/<%//=prof.getPic().getSUUID()%>" ><img src="/Instagrim/Thumb/<%//=prof.getPic().getSUUID()%>"></a><br/>
+            <a href="/Instagrim/Image/<%=prof.getPic().getSUUID()%>" ><img src="/Instagrim/Thumb/<%=prof.getPic().getSUUID()%>"></a><br/>
             First name: <%=prof.getFirstname()%><br/>
             Last name: <%=prof.getLastname()%><br/>
             E-mail: <%=prof.getEmail()%><br/>
