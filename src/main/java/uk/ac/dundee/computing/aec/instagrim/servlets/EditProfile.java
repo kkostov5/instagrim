@@ -20,7 +20,7 @@ import javax.servlet.http.Part;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.models.PicModel;
 import uk.ac.dundee.computing.aec.instagrim.models.User;
-import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
+import uk.ac.dundee.computing.aec.instagrim.stores.*;
 
 /**
  *
@@ -45,7 +45,7 @@ public class EditProfile extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        for (Part part : request.getParts()) {
+        /*for (Part part : request.getParts()) {
             System.out.println("Part Name " + part.getName());
 
             String type = part.getContentType();
@@ -71,12 +71,20 @@ public class EditProfile extends HttpServlet {
             }
             
         }
+        */
+        HttpSession session=request.getSession();
+        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+        Profile prof = (Profile) session.getAttribute("Profile");
         String firstname=request.getParameter("firstname");
         String lastname=request.getParameter("lastname");
         String email=request.getParameter("email");
+        String username= lg.getUsername();
+        prof.setFirstname(firstname);
+        prof.setLastname(lastname);
+        prof.setEmail(email);
         User us=new User();
         us.setCluster(cluster);
-        us.EditProfile(firstname,lastname,email);
+        us.EditProfile(username,firstname,lastname,email);
         
 	response.sendRedirect("/Instagrim/UserProfile.jsp");
         

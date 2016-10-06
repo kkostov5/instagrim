@@ -25,11 +25,8 @@
                 Profile prof = (Profile) session.getAttribute("Profile");
             %>
                 <h3>Edit Profile</h3>
-                <form method="POST"  enctype="multipart/form-data" action="EditProfile">
+                <form method="POST" action="EditProfile">
                     <table>
-                        <tr>
-                            <td>First Name</td><td> <input type="file" name="upfile"><br/>
-                        </tr>
                         <tr>
                             <td>First Name</td><td> <input type="text" name="firstname" value="<%=prof.getFirstname()%>"></td>
                         </tr>

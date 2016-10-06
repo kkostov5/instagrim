@@ -79,15 +79,15 @@ public class User {
     return false;  
     }
     
-    public boolean EditProfile(String firstname, String lastname, String email){
+    public boolean EditProfile(String login,String firstname, String lastname, String email){
        
         Session session = cluster.connect("instagrim");
-        PreparedStatement ps = session.prepare("update into userprofiles (first_name,last_name,email) Values(?,?,?)");
+        PreparedStatement ps = session.prepare("update userprofiles set first_name=?,last_name=?,email=? where login=?");
        
         BoundStatement boundStatement = new BoundStatement(ps);
         session.execute( // this is where the query is executed
                 boundStatement.bind( // here you are binding the 'boundStatement'
-                        firstname,lastname,email));
+                        firstname,lastname,email,login));
         //We are assuming this always works.  Also a transaction would be good here !
         
         return true;
@@ -154,7 +154,7 @@ public class User {
         }catch (UnsupportedEncodingException | NoSuchAlgorithmException et){
             System.out.println("Can't check your password");
             return false;
-        }*//*
+        }*/
         String email =null;
         Session session = cluster.connect("instagrim");
         PreparedStatement ps = session.prepare("select email from userprofiles where login =?");
@@ -171,8 +171,7 @@ public class User {
                  email = row.getString("email");
             }
             return email;
-        }*/
-        return null;
+        }
     }
        public void setCluster(Cluster cluster) {
         this.cluster = cluster;
