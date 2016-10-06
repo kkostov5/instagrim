@@ -7,10 +7,10 @@ package uk.ac.dundee.computing.aec.instagrim.stores;
 
 public class Profile {
 
-    String Firstname = null;
-    String Lastname = null;
-    String email = null;
-    Pic image = new Pic();
+    private String Firstname = null;
+    private String Lastname = null;
+    private String email = null;
+    private java.util.UUID pic = null;
     public void profile() {
 
     }
@@ -37,10 +37,10 @@ public class Profile {
     public String getEmail() {
         return email;
     }
-    public void setPic(Pic user) {
-        this.image = user;
+    public void setPic(java.util.UUID picid) {
+        this.pic = picid;
     }
-    public Pic getPic() {
-        return image;
+    public java.util.UUID getPic() {
+        return pic;
     }
 }

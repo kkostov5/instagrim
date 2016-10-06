@@ -78,6 +78,20 @@ public class User {
         }
     return false;  
     }
+    
+    public boolean EditProfile(String firstname, String lastname, String email){
+       
+        Session session = cluster.connect("instagrim");
+        PreparedStatement ps = session.prepare("update into userprofiles (first_name,last_name,email) Values(?,?,?)");
+       
+        BoundStatement boundStatement = new BoundStatement(ps);
+        session.execute( // this is where the query is executed
+                boundStatement.bind( // here you are binding the 'boundStatement'
+                        firstname,lastname,email));
+        //We are assuming this always works.  Also a transaction would be good here !
+        
+        return true;
+    }
     public String getFirstname(String username){
       /*  AeSimpleSHA1 sha1handler=  new AeSimpleSHA1();
         String EncodedPassword=null;

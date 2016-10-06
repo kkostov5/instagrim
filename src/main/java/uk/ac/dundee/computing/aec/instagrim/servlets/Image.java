@@ -121,7 +121,7 @@ public class Image extends HttpServlet {
         byte[] buffer = new byte[8192];
         for (int length = 0; (length = input.read(buffer)) > 0;) {
             out.write(buffer, 0, length);
-        }
+        }/*
         if(type==Convertors.DISPLAY_PROCESSED)
         {
             String[][] comments= tm.getComments(java.util.UUID.fromString(Image));
@@ -132,13 +132,13 @@ public class Image extends HttpServlet {
                 out.write(temp.getBytes());
                 i++;
             }
-        }
+        }*/
         out.close();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        insertPic(request,response);
-            RequestDispatcher rd = request.getRequestDispatcher("/upload.jsp");
+            insertPic(request,response);
+                RequestDispatcher rd = request.getRequestDispatcher("/upload.jsp");
              rd.forward(request, response);
 
     }
@@ -164,7 +164,7 @@ public class Image extends HttpServlet {
                 System.out.println("Length : " + b.length);
                 PicModel tm = new PicModel();
                 tm.setCluster(cluster);
-                tm.insertPic(b, type, filename, username);
+                tm.insertPic(b, type, filename, username, false);
 
                 is.close();
             }
