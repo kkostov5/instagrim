@@ -23,6 +23,7 @@
 
            <%
 
+               
                 Profile prof = (Profile) session.getAttribute("Profile");
               if(prof==null){
             %>
@@ -33,21 +34,23 @@ else{
             if(prof.getPic()==null)
 {
             %>
-           <img src="../java/uk/ac/dundee/computing/aec/instagrim/pic/images.jpg" alt=""/></br>
+           <img src="images.jpg"></br>
             First name: <%=prof.getFirstname()%><br/>
             Last name: <%=prof.getLastname()%><br/>
             E-mail: <%=prof.getEmail()%><br/>
+            <%=prof.getPic()%>
             <button type="button"><a href="/Instagrim">Home</a></button>
             <%
                  }
 else{
             %>
-            <a href="/Instagrim/Image/<%=prof.getPic().getSUUID()%>" ><img src="/Instagrim/Thumb/<%=prof.getPic().getSUUID()%>"></a><br/>
+            <a href="/Instagrim/Image/<%=prof.getPic()%>" ><img src="/Instagrim/Thumb/<%=prof.getPic()%>"></a><br/>
             First name: <%=prof.getFirstname()%><br/>
             Last name: <%=prof.getLastname()%><br/>
             E-mail: <%=prof.getEmail()%><br/>
             <button type="button"><a href="/Instagrim">Home</a></button>
             <%
+                
                 }}
                 %>
                 <button type="button"><a href="EditProfile.jsp">Edit Profile</a></button>

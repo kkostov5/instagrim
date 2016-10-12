@@ -18,7 +18,7 @@
         <header>
             <h1>InstaGrim</h1>
         </header>
-
+        
         <div class="gallery">
                 <!--<li class="nav"><a href="/Instagrim/Images/majed">Sample Images</a></li>-->
         <article>
@@ -31,16 +31,18 @@
             <p>No Pictures found</p>
             <%
             } else {
+                int i=0;
                 Iterator<Pic> iterator;
                 iterator = lsPics.iterator();
                 while (iterator.hasNext()) {
                     Pic p = (Pic) iterator.next();
 
             %>
-            <!--<a href="/Instagrim/Image/<%//=p.getSUUID()%>" ><img src="/Instagrim/Thumb/<%//=p.getSUUID()%>"></a><br/>-->
-            <a href="/Instagrim/SingleImage.jsp" ><img src="/Instagrim/Thumb/<%=p.getSUUID()%>"></a><br/>
+            <a class="expansion" href="#" id="img<%=i%>"><img src="/Instagrim/Image/<%=p.getSUUID()%>"></a>
+            <a href="#img<%=i%>"><img src="/Instagrim/Thumb/<%=p.getSUUID()%>"></a><br/>
+            <!--<a href="/Instagrim/SingleImage.jsp" ><img src="/Instagrim/Thumb/<%//=p.getSUUID()%>"></a><br/>-->
             <%
-
+                    i++;
                     }
                 }
                 %>

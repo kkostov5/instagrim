@@ -15,4 +15,3 @@ uk/ac/dundee/computing/aec/instagrim/servlets/Image.class
 uk/ac/dundee/computing/aec/instagrim/stores/Profile.class
 uk/ac/dundee/computing/aec/instagrim/servlets/Logout.class
 uk/ac/dundee/computing/aec/instagrim/servlets/OneImage.class
-uk/ac/dundee/computing/aec/instagrim/servlets/PicPreview.class

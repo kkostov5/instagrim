@@ -8,7 +8,31 @@ and open the template in the editor.
     Author     : Administrator
 */
 
+.expansion
+{
+	background:rgba(0,0,0,0.8);
+	display:none;
+	height:auto;
+	left:0;
+	position:fixed;
+	text-align:left;
+	top:0;
+	width:100%;
+	z-index:9999;
+}
 
+.expansion img
+{
+	height:auto;
+	margin-top:5%;
+	width:50%;
+}
+
+.expansion:target
+{
+	display:block;
+	outline:none;
+}
 body{
     background-color: #f2f6fc;
 }
@@ -23,9 +47,9 @@ header, footer {
 }
 div {
     padding-bottom: 0;
-    height: 250px;
-    width: 24%;
-    margin: 15% 38% 0 38%;
+    height: 300px;
+    width: 30%;
+    margin: 10% 35% 0 35%;
     text-align: center;
     border: 2px;
     border-radius: 3%;

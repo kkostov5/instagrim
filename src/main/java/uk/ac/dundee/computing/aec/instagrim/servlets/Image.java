@@ -24,8 +24,8 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.fileupload.util.Streams;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.lib.Convertors;
-import uk.ac.dundee.computing.aec.instagrim.models.PicModel;
-import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
+import uk.ac.dundee.computing.aec.instagrim.models.*;
+import uk.ac.dundee.computing.aec.instagrim.stores.*;
 import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
 
 /**
@@ -140,17 +140,19 @@ public class Image extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             insertPic(request,response);
-                RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+             RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
              rd.forward(request, response);
 
     }
     
     protected void insertPic(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
+        Boolean checkers = request.getParameter("profilepic")!=null;
         //for (Part part : request.getParts()) {
+            
+            System.out.println("Checkers " + checkers);
             Part part = request.getPart("upfile");
             System.out.println("Part Name " + part.getName());
-            String checkers = request.getParameter("profilepic");
             String type = part.getContentType();
             String filename = part.getSubmittedFileName();
             InputStream is = request.getPart(part.getName()).getInputStream();
@@ -167,17 +169,23 @@ public class Image extends HttpServlet {
                 System.out.println("Length : " + b.length);
                 PicModel tm = new PicModel();
                 tm.setCluster(cluster);
-                if(checkers==null)
+                if(checkers==false)
                 {
-                tm.insertPic(b, type, filename, username, false);
+                    System.out.println("Setting profile picture" + checkers);
+                    tm.insertPic(b, type, filename, username, false);
                 }
                 else
                 {
+                    System.out.println("Uploading a picture " + checkers);
                     tm.insertPic(b, type, filename, username, true);
+                    System.out.println("xxxzcx " + checkers);
+                    Profile prof= (Profile)session.getAttribute("Profile");
+                    User user = new User();
+                    prof.setPic(user.getProfilePic(lg.getUsername()));
                 }
                 is.close();
             }
-       // }
+        //}
 
     }
 

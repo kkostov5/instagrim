@@ -42,7 +42,7 @@
                 <form class="upload" method="POST" enctype="multipart/form-data" action="Image">
                     <!--<input type="radio" name="Filter" value="Black">Black and White<br/>
                     <input type="radio" name="Filter" value="None">None<br/>-->
-                    <input type="checkbox" name="profilepic" value="profilepic">Set as profile picture<br/>
+                    <input type="checkbox" name="profilepic" value="true">Set as profile picture<br/>
                     <input type="file" name="upfile" onchange="readURL(this);"><br/>
                     <img id="blah" src="#" alt="your image" />
 

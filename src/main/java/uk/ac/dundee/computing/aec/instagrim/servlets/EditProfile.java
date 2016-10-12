@@ -9,6 +9,7 @@ import com.datastax.driver.core.Cluster;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -101,7 +102,6 @@ public class EditProfile extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         
     }
     /**

@@ -177,16 +177,17 @@ public class User {
         }
     }
     
-    public Pic getProfilePic(String username) {
+    public java.util.UUID getProfilePic(String username) {
         Session session = cluster.connect("instagrim");
         ByteBuffer bImage = null;
+        java.util.UUID picid = null;
         String type = null;
         int length = 0;
         try {
             Convertors convertor = new Convertors();
             ResultSet rs = null;
             PreparedStatement ps = null;
-                ps = session.prepare("select image,imagelength,type from pics where picid =(select picid from userpiclist where profilepic=true and user=?))");
+                ps = session.prepare("select picid from userprofiles where login =?");
             BoundStatement boundStatement = new BoundStatement(ps);
             rs = session.execute( // this is where the query is executed
                     boundStatement.bind( // here you are binding the 'boundStatement'
@@ -198,10 +199,8 @@ public class User {
             } else {
                 for (Row row : rs) {
                     
-                        bImage = row.getBytes("image");
-                        length = row.getInt("imagelength");
-                        type = row.getString("type");
-
+                        picid = row.getUUID("picid");
+                        System.out.println("get Pic" + picid);
                 }
             }
         } catch (Exception et) {
@@ -209,10 +208,8 @@ public class User {
             return null;
         }
         session.close();
-        Pic p = new Pic();
-        p.setPic(bImage, length, type);
 
-        return p;
+        return picid;
 
     }
        public void setCluster(Cluster cluster) {

@@ -10,7 +10,7 @@ public class Profile {
     private String Firstname = null;
     private String Lastname = null;
     private String email = null;
-    private Pic image = null;
+    private java.util.UUID image = null;
     public void profile() {
 
     }
@@ -37,10 +37,11 @@ public class Profile {
     public String getEmail() {
         return email;
     }
-    public void setPic(Pic image) {
+    public void setPic(java.util.UUID image) {
         this.image = image;
     }
-    public Pic getPic() {
-        return image;
+    public String getPic() {
+        if(image == null)return null;
+        else return image.toString();
     }
 }
