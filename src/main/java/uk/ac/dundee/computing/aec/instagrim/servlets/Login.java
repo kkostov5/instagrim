@@ -39,6 +39,12 @@ public class Login extends HttpServlet {
         cluster = CassandraHosts.getCluster();
     }
 
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+        
+        RequestDispatcher rd=request.getRequestDispatcher("login.jsp");
+	rd.forward(request,response);
+    }
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -61,7 +67,11 @@ public class Login extends HttpServlet {
         boolean isValid=us.IsValidUser(username, password);
         HttpSession session=request.getSession();
         System.out.println("Session in servlet "+session);
-        if (isValid){
+        if(username == " " || password==" ")
+        {
+            response.sendRedirect("/Instagrim/index.jsp");
+        }
+        else if (isValid){
             LoggedIn lg= new LoggedIn();
             Profile prof = new Profile();
             lg.setLogedin();
@@ -73,11 +83,11 @@ public class Login extends HttpServlet {
             session.setAttribute("LoggedIn", lg);
             session.setAttribute("Profile", prof);
             System.out.println("Session in servlet "+session);
-            RequestDispatcher rd=request.getRequestDispatcher("index.jsp");
+            RequestDispatcher rd=request.getRequestDispatcher("/index.jsp");
 	    rd.forward(request,response);
             
         }else{
-            response.sendRedirect("/Instagrim/index.jsp");
+            response.sendRedirect("/index.jsp");
         }
         
     }

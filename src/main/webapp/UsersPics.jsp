@@ -38,8 +38,18 @@
                     Pic p = (Pic) iterator.next();
 
             %>
-            <a class="expansion" href="#" id="img<%=i%>"><img src="/Instagrim/Image/<%=p.getSUUID()%>"></a>
-            <a href="#img<%=i%>"><img src="/Instagrim/Thumb/<%=p.getSUUID()%>"></a><br/>
+            <a class="expansion" href="#" id="img<%=i%>"><img src="/Instagrim/Image/<%=p.getSUUID()%>">
+                <form class="expansion" method="POST"  action="Login">
+                    <table>
+                        <tr>
+                            <td>Comment</td> <td><input type="text" name="comment"></td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <input type="submit" value="Login"> 
+                </form>
+            </a>
+            <a href="/Instagrim/Image/<%=p.getSUUID()%>"><img src="/Instagrim/Thumb/<%=p.getSUUID()%>"></a><br/>
             <!--<a href="/Instagrim/SingleImage.jsp" ><img src="/Instagrim/Thumb/<%//=p.getSUUID()%>"></a><br/>-->
             <%
                     i++;

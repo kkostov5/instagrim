@@ -19,13 +19,23 @@ and open the template in the editor.
 	top:0;
 	width:100%;
 	z-index:9999;
+        color: white;
 }
 
 .expansion img
 {
 	height:auto;
 	margin-top:5%;
+        margin-left: 5%;
 	width:50%;
+}
+.expansion form
+{
+	height:auto;
+	margin-top:5%;
+	width:50%;
+        position:auto;
+	text-align:right;
 }
 
 .expansion:target

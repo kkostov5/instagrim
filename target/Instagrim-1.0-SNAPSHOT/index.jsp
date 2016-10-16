@@ -27,16 +27,16 @@
                 if (lg != null) {
                     if (lg.getlogedin()) {
             %>
-            <button type="button"><a href="UserProfile.jsp">Profile</a></button></br>
-            <button type="button"><a href="upload.jsp">Upload</a></button></br>
+            <button type="button"><a href="/Instagrim/Profile/<%=lg.getUsername()%>">Profile</a></button></br>
+            <button type="button"><a href="/Instagrim/Upload">Upload</a></button></br>
             <button type="button"><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></button>
             <button type="button"><a href="/Instagrim/Logout">Logout</a></button>
                 <%}
                 } else {
                 %>
 
-                <button type="button"><a href="register.jsp">Register</a></button></br>
-                <button type="button"><a href="login.jsp">Login</a></button>
+                <button type="button"><a href="/Instagrim/Register">Register</a></button></br>
+                <button type="button"><a href="/Instagrim/Login">Login</a></button>
                 <%
                     }%>
         </div>

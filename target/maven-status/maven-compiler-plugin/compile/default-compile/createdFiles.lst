@@ -3,7 +3,9 @@ uk/ac/dundee/computing/aec/instagrim/models/User.class
 uk/ac/dundee/computing/aec/instagrim/servlets/Account.class
 uk/ac/dundee/computing/aec/instagrim/stores/Pic.class
 uk/ac/dundee/computing/aec/instagrim/servlets/Login.class
+uk/ac/dundee/computing/aec/instagrim/servlets/UserProfile.class
 uk/ac/dundee/computing/aec/instagrim/stores/LoggedIn.class
+uk/ac/dundee/computing/aec/instagrim/servlets/Upload.class
 uk/ac/dundee/computing/aec/instagrim/models/PicModel.class
 uk/ac/dundee/computing/aec/instagrim/lib/CassandraHosts.class
 uk/ac/dundee/computing/aec/instagrim/servlets/EditProfile.class
@@ -12,6 +14,7 @@ uk/ac/dundee/computing/aec/instagrim/lib/AeSimpleSHA1.class
 uk/ac/dundee/computing/aec/instagrim/lib/Convertors.class
 uk/ac/dundee/computing/aec/instagrim/lib/Keyspaces.class
 uk/ac/dundee/computing/aec/instagrim/servlets/Image.class
+uk/ac/dundee/computing/aec/instagrim/servlets/Comments.class
 uk/ac/dundee/computing/aec/instagrim/stores/Profile.class
 uk/ac/dundee/computing/aec/instagrim/servlets/Logout.class
-uk/ac/dundee/computing/aec/instagrim/servlets/OneImage.class
+.netbeans_automatic_build
