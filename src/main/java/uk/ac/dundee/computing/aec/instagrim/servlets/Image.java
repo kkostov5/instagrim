@@ -81,13 +81,13 @@ public class Image extends HttpServlet {
         }
         switch (command) {
             case 1:
-                DisplayImage(Convertors.DISPLAY_PROCESSED,args[2], response);
+                DisplayImage(Convertors.DISPLAY_PROCESSED,args[2],request, response);
                 break;
             case 2:
                 DisplayImageList(args[2], request, response);
                 break;
             case 3:
-                DisplayImage(Convertors.DISPLAY_THUMB,args[2],  response);
+                DisplayImage(Convertors.DISPLAY_THUMB,args[2],request,  response);
                 break;
             default:
                 error("Bad Operator", response);
@@ -104,14 +104,15 @@ public class Image extends HttpServlet {
 
     }
 
-    private void DisplayImage(int type,String Image, HttpServletResponse response) throws ServletException, IOException {
+    private void DisplayImage(int type,String Image,HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         PicModel tm = new PicModel();
         tm.setCluster(cluster);
   
         
         Pic p = tm.getPic(type,java.util.UUID.fromString(Image));
-        
-        OutputStream out = response.getOutputStream();
+        if(type==2)
+        {
+            OutputStream out = response.getOutputStream();
 
         response.setContentType(p.getType());
         response.setContentLength(p.getLength());
@@ -121,19 +122,17 @@ public class Image extends HttpServlet {
         byte[] buffer = new byte[8192];
         for (int length = 0; (length = input.read(buffer)) > 0;) {
             out.write(buffer, 0, length);
-        }/*
-        if(type==Convertors.DISPLAY_PROCESSED)
-        {
-            String[][] comments= tm.getComments(java.util.UUID.fromString(Image));
-            int i=0;
-            while(comments[i][0]!=null)
-            {
-                String temp = comments[i][0]+" - "+comments[i][1];
-                out.write(temp.getBytes());
-                i++;
-            }
-        }*/
+        }
         out.close();
+        }
+        else
+        {
+        String[][] comments = tm.getComments(java.util.UUID.fromString(Image));
+        RequestDispatcher rd = request.getRequestDispatcher("/SingleImage.jsp");
+        request.setAttribute("Picture", p);
+        request.setAttribute("Comments", comments);
+        rd.forward(request, response);
+        }
 
         
     }

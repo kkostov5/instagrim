@@ -19,10 +19,39 @@
         </header>
 
         <div class="gallery">
-                <!--<li class="nav"><a href="/Instagrim/Images/majed">Sample Images</a></li>-->
-        <article>
-            <button type="button"><a href="/Instagrim">Home</a></button>
-            <h1>Single Pics</h1>
+       <h1>Your Pics</h1>
+            <%
+                Pic p = (Pic) request.getAttribute("Picture");
+                String[][] comments = (String[][])request.getAttribute("Comments");
+                if (p == null) {
+            %>
+            <p>No Pictures found</p>
+            
+                <form class="expansion" method="POST"  action="Login">
+                    <table>
+                        <tr>
+                            <a href="/Instagrim/Image/<%=p.getSUUID()%>"><img src="/Instagrim/Thumb/<%=p.getSUUID()%>"></a>
+                            <td>User</td> <td>Comments</td>
+                        <%
+            } else {
+                int i=0;
+                while (comments.length<i) {
+
+            %>
+                            <tr><td></td><td><%=comments[i][0]%></td> <td><%=comments[i][1]%></td></tr>
+                        <%
+                    i++;
+                    }
+                }
+                %>
+                            <td>Comment</td> <td><input type="textbox" name="comment"></td>
+                    </table>
+                    <br/>
+                    <input type="submit" value="Login"> 
+                </form>
+            
+            <!--<a href="/Instagrim/SingleImage.jsp" ><img src="/Instagrim/Thumb/<%//=p.getSUUID()%>"></a><br/>-->
+            
         </article>
     </div>
     <footer>
