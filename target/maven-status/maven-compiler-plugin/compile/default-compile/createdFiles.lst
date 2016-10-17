@@ -1,6 +1,5 @@
 uk/ac/dundee/computing/aec/instagrin/filters/ProtectPages.class
 uk/ac/dundee/computing/aec/instagrim/models/User.class
-uk/ac/dundee/computing/aec/instagrim/servlets/Account.class
 uk/ac/dundee/computing/aec/instagrim/stores/Pic.class
 uk/ac/dundee/computing/aec/instagrim/servlets/Login.class
 uk/ac/dundee/computing/aec/instagrim/servlets/UserProfile.class
@@ -15,4 +14,6 @@ uk/ac/dundee/computing/aec/instagrim/lib/Convertors.class
 uk/ac/dundee/computing/aec/instagrim/lib/Keyspaces.class
 uk/ac/dundee/computing/aec/instagrim/servlets/Image.class
 uk/ac/dundee/computing/aec/instagrim/servlets/Comments.class
+uk/ac/dundee/computing/aec/instagrim/servlets/Main.class
+uk/ac/dundee/computing/aec/instagrim/stores/Profile.class
 uk/ac/dundee/computing/aec/instagrim/servlets/Logout.class

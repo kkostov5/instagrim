@@ -42,7 +42,7 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
         
-        RequestDispatcher rd=request.getRequestDispatcher("login.jsp");
+        RequestDispatcher rd=request.getRequestDispatcher("/login.jsp");
 	rd.forward(request,response);
     }
     /**
@@ -69,7 +69,7 @@ public class Login extends HttpServlet {
         System.out.println("Session in servlet "+session);
         if(username == " " || password==" ")
         {
-            response.sendRedirect("/Instagrim/index.jsp");
+            response.sendRedirect("/Instagrim/Index");
         }
         else if (isValid){
             LoggedIn lg= new LoggedIn();
@@ -83,11 +83,11 @@ public class Login extends HttpServlet {
             session.setAttribute("LoggedIn", lg);
             session.setAttribute("Profile", prof);
             System.out.println("Session in servlet "+session);
-            RequestDispatcher rd=request.getRequestDispatcher("/index.jsp");
+            RequestDispatcher rd=request.getRequestDispatcher("/Index");
 	    rd.forward(request,response);
             
         }else{
-            response.sendRedirect("/index.jsp");
+            response.sendRedirect("/Index");
         }
         
     }

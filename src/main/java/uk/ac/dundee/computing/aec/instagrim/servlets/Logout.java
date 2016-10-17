@@ -29,9 +29,9 @@ public class Logout extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
         
-        HttpSession session=request.getSession();
-        session.invalidate();
-        response.sendRedirect("index.jsp");
+        //HttpSession session=request.getSession();
+        //session.invalidate();
+        //response.sendRedirect("/Index");
         
     }
     @Override
@@ -39,6 +39,6 @@ public class Logout extends HttpServlet {
         
         HttpSession session=request.getSession();
         session.invalidate();
-        response.sendRedirect("index.jsp");
+        response.sendRedirect("/Instagrim/Index");
     }
 }

@@ -47,6 +47,7 @@ public class Comments extends HttpServlet {
         tm.setCluster(cluster);
   
         String Image = args[2];
+        System.out.println(Image);
         p = tm.getPic(2,java.util.UUID.fromString(Image));
         p.setUUID(java.util.UUID.fromString(Image));
         String[][] comments = tm.getComments(java.util.UUID.fromString(Image));
@@ -66,7 +67,7 @@ public class Comments extends HttpServlet {
         HttpSession session=request.getSession();
         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
         tm.setComment(java.util.UUID.fromString(p.getSUUID()), lg.getUsername(), request.getParameter("comment"));
-        RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/Index");
         rd.forward(request, response);
     }
 

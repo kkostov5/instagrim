@@ -65,7 +65,7 @@ public class Register extends HttpServlet {
         us.setCluster(cluster);
         us.RegisterUser(firstname,lastname,email,username, password);
         
-	response.sendRedirect("/Instagrim/login.jsp");
+	response.sendRedirect("/Instagrim/Login");
         
     }
 

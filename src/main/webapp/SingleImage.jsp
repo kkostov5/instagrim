@@ -11,7 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Instagrim</title>
-        <link rel="stylesheet" type="text/css" href="/Instagrim/Styles.css" />
+        <link rel="stylesheet" type="text/css" href="/Instagrim/Styles.css">
     </head>
     <body>
         <header>
@@ -34,10 +34,12 @@
                 <table>
                     <tr>
                     <img src="/Instagrim/Thumb/<%=p.getSUUID()%>">
-                    <td>User</td> <td>Comment</td>
+                    
                     <%
                         if (comments != null) {
-                            int i = 0;
+                            int i = 0;%>
+                    <td>User</td> <td>Comment</td>
+                    <%
                             while (comments.length < i) {
 
                     %>
@@ -45,15 +47,15 @@
                     <%
                                     i++;
                                 }
-                            }
-                        }
-                    %>
+                            }%>
+                       
                     <td>Comment</td> <td><input type="textbox" name="comment"></td>
                 </table>
                 <br/>
                 <input type="submit" value="Comment"> 
             </form>
-
+<% }
+                    %>
 <!--<a href="/Instagrim/SingleImage.jsp" ><img src="/Instagrim/Thumb/<%//=p.getSUUID()%>"></a><br/>-->
 
         </article>

@@ -24,7 +24,7 @@ import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
  */
 @WebServlet(urlPatterns = {
     "/Profiled"
-})
+})@MultipartConfig
 public class UserProfile extends HttpServlet {
      Cluster cluster=null;
 
@@ -37,15 +37,15 @@ public class UserProfile extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
         
-        RequestDispatcher rd=request.getRequestDispatcher("UserProfile.jsp");
+        RequestDispatcher rd=request.getRequestDispatcher("/UserProfile.jsp");
 	rd.forward(request,response);
     }
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
         
-        RequestDispatcher rd=request.getRequestDispatcher("/Instagrim/UserProfile.jsp");
-	rd.forward(request,response);
+        //RequestDispatcher rd=request.getRequestDispatcher("/Profiled");
+	//rd.forward(request,response);
     }
 
 }

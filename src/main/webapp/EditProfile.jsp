@@ -41,7 +41,7 @@
                     <br/>
                     <input type="submit" value="Edit"> 
                 </form>
-                <button type="button"><a href="index.jsp">Menu</a></button>
+                <button type="button"><a href="/Index">Menu</a></button>
             </article>
         </div>
         <footer>

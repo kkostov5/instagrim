@@ -140,7 +140,7 @@ public class Image extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             insertPic(request,response);
-             RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+             RequestDispatcher rd = request.getRequestDispatcher("/Index");
              rd.forward(request, response);
 
     }

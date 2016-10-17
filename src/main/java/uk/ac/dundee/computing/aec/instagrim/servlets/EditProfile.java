@@ -87,7 +87,7 @@ public class EditProfile extends HttpServlet {
         us.setCluster(cluster);
         us.EditProfile(username,firstname,lastname,email);
         
-	response.sendRedirect("/Instagrim/UserProfile.jsp");
+	response.sendRedirect("/Instagrim/Profiled/"+lg.getUsername());
         
     }
 
@@ -102,7 +102,8 @@ public class EditProfile extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        RequestDispatcher rd=request.getRequestDispatcher("/EditProfile.jsp");
+	rd.forward(request,response);
     }
     /**
      * Returns a short description of the servlet.
