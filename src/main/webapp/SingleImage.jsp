@@ -19,43 +19,47 @@
         </header>
 
         <div class="gallery">
-       <h1>Your Pics</h1>
+            <h1>Single Picture</h1>
             <%
                 Pic p = (Pic) request.getAttribute("Picture");
-                String[][] comments = (String[][])request.getAttribute("Comments");
+                String[][] comments = (String[][]) request.getAttribute("Comments");
                 if (p == null) {
             %>
             <p>No Pictures found</p>
-            
-                <form class="expansion" method="POST"  action="Login">
-                    <table>
-                        <tr>
-                            <a href="/Instagrim/Image/<%=p.getSUUID()%>"><img src="/Instagrim/Thumb/<%=p.getSUUID()%>"></a>
-                            <td>User</td> <td>Comments</td>
-                        <%
-            } else {
-                int i=0;
-                while (comments.length<i) {
 
-            %>
-                            <tr><td></td><td><%=comments[i][0]%></td> <td><%=comments[i][1]%></td></tr>
-                        <%
-                    i++;
-                    }
-                }
-                %>
-                            <td>Comment</td> <td><input type="textbox" name="comment"></td>
-                    </table>
-                    <br/>
-                    <input type="submit" value="Login"> 
-                </form>
-            
-            <!--<a href="/Instagrim/SingleImage.jsp" ><img src="/Instagrim/Thumb/<%//=p.getSUUID()%>"></a><br/>-->
-            
+            <%
+                        } else {%>
+
+            <form method="POST"  action="Comments">
+                <table>
+                    <tr>
+                    <img src="/Instagrim/Thumb/<%=p.getSUUID()%>">
+                    <td>User</td> <td>Comment</td>
+                    <%
+                        if (comments != null) {
+                            int i = 0;
+                            while (comments.length < i) {
+
+                    %>
+                    <tr><td></td><td><%=comments[i][0]%></td> <td><%=comments[i][1]%></td></tr>
+                    <%
+                                    i++;
+                                }
+                            }
+                        }
+                    %>
+                    <td>Comment</td> <td><input type="textbox" name="comment"></td>
+                </table>
+                <br/>
+                <input type="submit" value="Comment"> 
+            </form>
+
+<!--<a href="/Instagrim/SingleImage.jsp" ><img src="/Instagrim/Thumb/<%//=p.getSUUID()%>"></a><br/>-->
+
         </article>
     </div>
     <footer>
         &COPY; Krasimir Kostov
     </footer>
-    </body>
+</body>
 </html>

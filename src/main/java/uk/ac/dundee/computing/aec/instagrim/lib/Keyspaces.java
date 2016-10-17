@@ -52,8 +52,8 @@ public final class Keyspaces {
                     + "  );";
             String CreatePictureComments = "CREATE TABLE if not exists instagrim.piccomments (\n"
                     + "      user text ,\n"
-                    + "      comment text,\n"
-                    + "      picid uuid PRIMARY KEY\n"
+                    + "      comment text PRIMARY KEY,\n"
+                    + "      picid uuid \n"
                     + "  );";
             Session session = c.connect();
             try {

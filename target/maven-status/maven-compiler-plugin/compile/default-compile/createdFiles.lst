@@ -15,5 +15,4 @@ uk/ac/dundee/computing/aec/instagrim/lib/Convertors.class
 uk/ac/dundee/computing/aec/instagrim/lib/Keyspaces.class
 uk/ac/dundee/computing/aec/instagrim/servlets/Image.class
 uk/ac/dundee/computing/aec/instagrim/servlets/Comments.class
-uk/ac/dundee/computing/aec/instagrim/stores/Profile.class
 uk/ac/dundee/computing/aec/instagrim/servlets/Logout.class

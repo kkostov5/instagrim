@@ -27,7 +27,7 @@
                 if (lg != null) {
                     if (lg.getlogedin()) {
             %>
-            <button type="button"><a href="/Instagrim/Profile/<%=lg.getUsername()%>">Profile</a></button></br>
+            <button type="button"><a href="/Instagrim/Profiled">Profile</a></button></br>
             <button type="button"><a href="/Instagrim/Upload">Upload</a></button></br>
             <button type="button"><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></button>
             <button type="button"><a href="/Instagrim/Logout">Logout</a></button>

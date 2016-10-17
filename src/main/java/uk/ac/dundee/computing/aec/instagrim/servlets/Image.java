@@ -110,8 +110,8 @@ public class Image extends HttpServlet {
   
         
         Pic p = tm.getPic(type,java.util.UUID.fromString(Image));
-        if(type==2)
-        {
+       // if(type==1)
+        //{
             OutputStream out = response.getOutputStream();
 
         response.setContentType(p.getType());
@@ -124,16 +124,17 @@ public class Image extends HttpServlet {
             out.write(buffer, 0, length);
         }
         out.close();
-        }
+       /* }
         else
         {
+        p.setUUID(java.util.UUID.fromString(Image));
         String[][] comments = tm.getComments(java.util.UUID.fromString(Image));
         RequestDispatcher rd = request.getRequestDispatcher("/SingleImage.jsp");
         request.setAttribute("Picture", p);
         request.setAttribute("Comments", comments);
         rd.forward(request, response);
         }
-
+*/
         
     }
 

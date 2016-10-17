@@ -5,24 +5,36 @@
  */
 package uk.ac.dundee.computing.aec.instagrim.servlets;
 
+import com.datastax.driver.core.Cluster;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 
 /**
  *
  * @author Krasi
  */
-@WebServlet(name = "UserProfile", urlPatterns = {
-    "/Profile",
-    "/Profile/*"})
+@WebServlet(urlPatterns = {
+    "/Profiled"
+})
 public class UserProfile extends HttpServlet {
-@Override
+     Cluster cluster=null;
+
+
+    public void init(ServletConfig config) throws ServletException {
+        // TODO Auto-generated method stub
+        cluster = CassandraHosts.getCluster();
+    }
+    
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
         
         RequestDispatcher rd=request.getRequestDispatcher("UserProfile.jsp");
@@ -32,7 +44,7 @@ public class UserProfile extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
         
-        RequestDispatcher rd=request.getRequestDispatcher("/Instagrim/Profile");
+        RequestDispatcher rd=request.getRequestDispatcher("/Instagrim/UserProfile.jsp");
 	rd.forward(request,response);
     }
 

@@ -38,7 +38,6 @@ import uk.ac.dundee.computing.aec.instagrim.lib.*;
 import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
 import uk.ac.dundee.computing.aec.instagrim.stores.Profile;
 //import uk.ac.dundee.computing.aec.stores.TweetStore;
-
 public class PicModel {
 
     Cluster cluster;
@@ -239,7 +238,9 @@ public class PicModel {
                 int i = 0;
                 for (Row row : rs) {
                     get[i][0] = row.getString("user");
+                    System.out.println(get[i][0]);
                     get[i][1] = row.getString("comment");
+                    System.out.println(get[i][1]);
                     i++;
                 }
             }
@@ -253,4 +254,16 @@ public class PicModel {
 
     }
 
+    public void setComment(java.util.UUID picid,String username, String comment) {
+        Session session = cluster.connect("instagrim");
+
+            PreparedStatement ps = null;
+            ps = session.prepare("Insert into piccomments (user,comment,picid) values(?,?,?)");
+            BoundStatement boundStatement = new BoundStatement(ps);
+            session.execute( // this is where the query is executed
+                    boundStatement.bind( // here you are binding the 'boundStatement'
+                            username,comment,picid));
+        session.close();
+
+    }
 }
