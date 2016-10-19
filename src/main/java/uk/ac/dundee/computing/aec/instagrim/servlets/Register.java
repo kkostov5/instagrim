@@ -41,7 +41,7 @@ public class Register extends HttpServlet {
 @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
         
-        RequestDispatcher rd=request.getRequestDispatcher("register.jsp");
+        RequestDispatcher rd=request.getRequestDispatcher("/register.jsp");
 	rd.forward(request,response);
     }
     /**
@@ -63,9 +63,19 @@ public class Register extends HttpServlet {
         String password=request.getParameter("password");
         User us=new User();
         us.setCluster(cluster);
-        us.RegisterUser(firstname,lastname,email,username, password);
+        if(us.IsExistingUser(username))
+        {
+            request.setAttribute("error","Username is taken.");
+            RequestDispatcher rd=request.getRequestDispatcher("/register.jsp");            
+            rd.include(request, response);
+        }
+        else 
+        {
+            us.RegisterUser(firstname,lastname,email,username, password);
+            response.sendRedirect("/Login");
+        }
         
-	response.sendRedirect("/Instagrim/Login");
+	
         
     }
 

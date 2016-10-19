@@ -67,7 +67,7 @@ public class Comments extends HttpServlet {
         HttpSession session=request.getSession();
         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
         tm.setComment(java.util.UUID.fromString(p.getSUUID()), lg.getUsername(), request.getParameter("comment"));
-        RequestDispatcher rd = request.getRequestDispatcher("/Index");
+        RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
         rd.forward(request, response);
     }
 

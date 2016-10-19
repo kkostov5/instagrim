@@ -69,7 +69,7 @@ public class Login extends HttpServlet {
         System.out.println("Session in servlet "+session);
         if(username == " " || password==" ")
         {
-            response.sendRedirect("/Instagrim/Index");
+            response.sendRedirect("/Index");
         }
         else if (isValid){
             LoggedIn lg= new LoggedIn();
@@ -83,11 +83,13 @@ public class Login extends HttpServlet {
             session.setAttribute("LoggedIn", lg);
             session.setAttribute("Profile", prof);
             System.out.println("Session in servlet "+session);
-            RequestDispatcher rd=request.getRequestDispatcher("/Index");
+            RequestDispatcher rd=request.getRequestDispatcher("/");
 	    rd.forward(request,response);
             
         }else{
-            response.sendRedirect("/Index");
+            request.setAttribute("error","Invalid Username or Password");
+            RequestDispatcher rd=request.getRequestDispatcher("/login.jsp");            
+            rd.include(request, response);
         }
         
     }

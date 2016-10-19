@@ -82,6 +82,30 @@ public class User {
     return false;  
     }
     
+    public boolean IsExistingUser(String username){
+        Session session = cluster.connect("instagrim");
+        PreparedStatement ps = session.prepare("select first_name from userprofiles where login =?");
+        ResultSet rs = null;
+        BoundStatement boundStatement = new BoundStatement(ps);
+        rs = session.execute( // this is where the query is executed
+                boundStatement.bind( // here you are binding the 'boundStatement'
+                        username));
+        if (rs.isExhausted()) {
+            System.out.println("No Images returned");
+            return false;
+        } else {
+            String test=null;
+            for (Row row : rs) {
+                
+                    test = row.getString("first_name");
+                    
+            }
+            if(test==null)return false;
+             else  return true;  
+        }
+        
+    }
+    
     public boolean EditProfile(String login,String firstname, String lastname, String email){
        
         Session session = cluster.connect("instagrim");

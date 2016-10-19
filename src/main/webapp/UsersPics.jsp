@@ -15,13 +15,21 @@
         <link rel="stylesheet" type="text/css" href="/Instagrim/Styles.css" />
     </head>
     <body>
-        <header>
-            <h1>InstaGrim</h1>
-        </header>
-        
-        <div class="gallery">
+        <div id="header">
+            <a href="/Instagrim"><h1>InstaGrim</h1></a>
+            <%
+
+                LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+                if (lg != null) {
+                    if (lg.getlogedin()) {
+            %>
+            <ul>
+            <li><a href="/Instagrim/Profiled">Profile</a></li>
+             <li><a href="/Instagrim/Upload">Upload</a></li>
+             <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
+             <li><a href="/Instagrim/Logout">Logout</a></li>
+             </ul></div><div id="body"><div class="gallery">
                 <!--<li class="nav"><a href="/Instagrim/Images/majed">Sample Images</a></li>-->
-        <article>
             <button type="button"><a href="/Instagrim">Home</a></button>
             <h1>Your Pics</h1>
             <%
@@ -38,17 +46,6 @@
                     Pic p = (Pic) iterator.next();
 
             %>
-            <a class="expansion" href="#" id="img<%=i%>"><img src="/Instagrim/Image/<%=p.getSUUID()%>">
-                <form class="expansion" method="POST"  action="Login">
-                    <table>
-                        <tr>
-                            <td>Comment</td> <td><input type="text" name="comment"></td>
-                        </tr>
-                    </table>
-                    <br/>
-                    <input type="submit" value="Login"> 
-                </form>
-            </a>
             <a href="/Instagrim/Comments/<%=p.getSUUID()%>"><img src="/Instagrim/Thumb/<%=p.getSUUID()%>"></a><br/>
             <!--<a href="/Instagrim/SingleImage.jsp" ><img src="/Instagrim/Thumb/<%//=p.getSUUID()%>"></a><br/>-->
             <%
@@ -56,10 +53,17 @@
                     }
                 }
                 %>
-        </article>
-    </div>
-    <footer>
-        &COPY; Krasimir Kostov
-    </footer>
+    </div></div>
+                <%}
+                } else {
+                response.sendRedirect("/Instagrim");
+                    }%>
+        
+        
+    <div id="footer">
+            <div>
+            <p>&COPY; Krasimir Kostov</p>
+            </div>
+        </div>
 </body>
 </html>

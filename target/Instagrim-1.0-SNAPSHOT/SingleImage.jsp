@@ -14,11 +14,20 @@
         <link rel="stylesheet" type="text/css" href="/Instagrim/Styles.css">
     </head>
     <body>
-        <header>
-            <h1>InstaGrim</h1>
-        </header>
+        <div id="header">
+            <a href="/Instagrim"><h1>InstaGrim</h1></a>
+            <%
 
-        <div class="gallery">
+                LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+                if (lg != null) {
+                    if (lg.getlogedin()) {
+            %>
+            <ul>
+            <li><a href="/Instagrim/Profiled">Profile</a></li>
+             <li><a href="/Instagrim/Upload">Upload</a></li>
+             <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
+             <li><a href="/Instagrim/Logout">Logout</a></li>
+             </ul></div><div id="body"><div class="gallery">
             <h1>Single Picture</h1>
             <%
                 Pic p = (Pic) request.getAttribute("Picture");
@@ -55,13 +64,20 @@
                 <input type="submit" value="Comment"> 
             </form>
 <% }
-                    %>
+                    %></div></div>
+                <%}
+                } else {
+                        response.sendRedirect("/Instagrim");
+                    }%>
+
+        
 <!--<a href="/Instagrim/SingleImage.jsp" ><img src="/Instagrim/Thumb/<%//=p.getSUUID()%>"></a><br/>-->
 
-        </article>
-    </div>
-    <footer>
-        &COPY; Krasimir Kostov
-    </footer>
+
+    <div id="footer">
+            <div>
+            <p>&COPY; Krasimir Kostov</p>
+            </div>
+        </div>
 </body>
 </html>

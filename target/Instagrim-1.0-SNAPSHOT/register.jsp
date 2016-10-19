@@ -14,11 +14,13 @@
         <link rel="stylesheet" type="text/css" href="Styles.css">
     </head>
     <body>
-        <header>
-            <h1>InstaGrim</h1>
-        </header>
-        <div>
-            <article>
+        <div id="header">
+            <a href="/Instagrim"><h1>InstaGrim</h1></a>
+            <ul>
+                    <li><a href="/Instagrim/Register">Register</a></li>
+                    <li><a href="/Instagrim/Login">Login</a></li>
+            </ul>
+            </div><div id="body">
                 <%
 
                 LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
@@ -28,19 +30,24 @@
                 <form method="POST"  action="Register">
                     <table>
                         <tr>
-                            <td>First Name</td><td> <input type="text" name="firstname"></td>
+                            <td>First Name</td><td> <input type="text" name="firstname" required></td>
                         </tr>
                         <tr>
-                            <td>Last Name</td><td> <input type="text" name="lastname"></td>
+                            <td>Last Name</td><td> <input type="text" name="lastname" required></td>
                         </tr>
                         <tr>
-                            <td>E-mail</td><td> <input type="text" name="email"></td>
+                            <td>E-mail</td><td> <input type="text" name="email" required></td>
                         </tr>
                         <tr>
-                            <td>User Name</td><td> <input type="text" name="username"></td>
+                            <td>User Name</td><td> <input type="text" name="username" required></td>
+                            <%
+String login_msg=(String)request.getAttribute("error");  
+if(login_msg!=null)
+out.println("<font color=red>"+login_msg+"</font>");
+%>
                         </tr>
                         <tr>
-                            <td>Password</td><td><input type="password" name="password"></td>
+                            <td>Password</td><td><input type="password" name="password" pattern=".{5,10}" required title="5 to 10 characters"></td>
                         </tr>
                     </table>
                     <br/>
@@ -50,13 +57,15 @@
                 } else {
                 %>
                 You are already logged in.
-                <button type="button"><a href="index.jsp">Menu</a></button>
+                <button type="button"><a href="/Instagrim">Menu</a></button>
                 <%
                     }%>
-            </article>
+           
         </div>
-        <footer>
-            &COPY; Krasimir Kostov
-        </footer>
+        <div id="footer">
+            <div>
+            <p>&COPY; Krasimir Kostov</p>
+            </div>
+        </div>
     </body>
 </html>

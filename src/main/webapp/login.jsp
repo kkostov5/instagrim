@@ -14,30 +14,38 @@
 
     </head>
     <body>
-        <header>
-            <h1>InstaGrim</h1>
-        </header>
-        <div>
-
-            <article>
+        <div id="header">
+            <a href="/Instagrim"><h1>InstaGrim</h1></a>
+            <ul>
+                    <li><a href="/Instagrim/Register">Register</a></li>
+                    <li><a href="/Instagrim/Login">Login</a></li>
+                </ul>
+            </div><div id="body">
+               
                 <h3>Login</h3>
                 <form method="POST"  action="Login">
                     <table>
                         <tr>
-                            <td>User Name</td> <td><input type="text" name="username"></td>
+                            <td>User Name</td> <td><input type="text" name="username" required></td>
                         </tr>
                         <tr>
-                            <td>Password</td><td><input type="password" name="password"></td>
+                            <td>Password</td><td><input type="password" name="password" required></td>
                         </tr>
                     </table>
                     <br/>
-                    <input type="submit" value="Login"> 
+                    <%
+String login_msg=(String)request.getAttribute("error");  
+if(login_msg!=null)
+out.println("<font color=red>"+login_msg+"</font>");
+%>
+                    <input type="submit" value="Login"> </br>
                 </form>
-
-            </article>
+                    <button type="button"><a href="/Instagrim/Register">Register</a></button></br>
         </div>
-        <footer>
-            &COPY; Krasimir Kostov
-        </footer>
+        <div id="footer">
+            <div>
+            <p>&COPY; Krasimir Kostov</p>
+            </div>
+        </div>
     </body>
 </html>

@@ -16,7 +16,7 @@
     </head>
     <body>
         <header>
-            <h1>InstaGrim</h1>
+            <a href="/Instagrim"><h1>InstaGrim</h1></a>
         </header>
         <div>
 
@@ -33,11 +33,7 @@
             <button type="button"><a href="/Instagrim/Logout">Logout</a></button>
                 <%}
                 } else {
-                %>
-
-                <button type="button"><a href="/Instagrim/Register">Register</a></button></br>
-                <button type="button"><a href="/Instagrim/Login">Login</a></button>
-                <%
+                response.sendRedirect("/Instagrim");
                     }%>
         </div>
         <footer>

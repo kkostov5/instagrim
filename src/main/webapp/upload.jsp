@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="uk.ac.dundee.computing.aec.instagrim.stores.*" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,10 +17,20 @@
 
     </head>
     <body>
-        <header>
-            <h1>InstaGrim</h1>
-        </header>
-        <div>
+        <div id="header">
+            <a href="/Instagrim"><h1>InstaGrim</h1></a>
+            <%
+
+                LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+                if (lg != null) {
+                    if (lg.getlogedin()) {
+            %>
+            <ul>
+            <li><a href="/Instagrim/Profiled">Profile</a></li>
+             <li><a href="/Instagrim/Upload">Upload</a></li>
+             <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
+             <li><a href="/Instagrim/Logout">Logout</a></li>
+             </ul></div><div id="body">
             <script type="text/javascript">
                 function readURL(input) {
                     if (input.files && input.files[0]) {
@@ -50,11 +61,18 @@
                     <%%>
                     <input type="submit" value="Submit">
                 </form>
-
-            </article>
         </div>
-        <footer>
-            &COPY; Krasimir Kostov
-        </footer>
+                <%}
+                } else {
+                response.sendRedirect("/Instagrim");
+                    }%>
+                   
+        
+        
+        <div id="footer">
+            <div>
+            <p>&COPY; Krasimir Kostov</p>
+            </div>
+        </div>
     </body>
 </html>

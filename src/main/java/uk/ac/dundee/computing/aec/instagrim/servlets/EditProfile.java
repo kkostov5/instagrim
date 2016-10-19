@@ -87,7 +87,7 @@ public class EditProfile extends HttpServlet {
         us.setCluster(cluster);
         us.EditProfile(username,firstname,lastname,email);
         
-	response.sendRedirect("/Instagrim/Profiled/"+lg.getUsername());
+	response.sendRedirect("/Instagrim/Profiled");
         
     }
 
