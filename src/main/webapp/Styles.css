@@ -246,6 +246,9 @@ p a:hover {
         overflow: visible;
 	width: 960px;
 }
+table{
+    align: center;
+}
 a{
     text-decoration: none;
     color:inherit;

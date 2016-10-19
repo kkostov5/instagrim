@@ -16,15 +16,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
+import uk.ac.dundee.computing.aec.instagrim.lib.Convertors;
+import uk.ac.dundee.computing.aec.instagrim.models.User;
+import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
+import uk.ac.dundee.computing.aec.instagrim.stores.Profile;
 
 /**
  *
  * @author Krasi
  */
 @WebServlet(urlPatterns = {
-    "/Profiled"
-})@MultipartConfig
+    "/Profile",
+    "/Profile/*",
+    "/EditProfile"
+})
+@MultipartConfig
 public class UserProfile extends HttpServlet {
      Cluster cluster=null;
 
@@ -37,15 +45,65 @@ public class UserProfile extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
         
-        RequestDispatcher rd=request.getRequestDispatcher("/UserProfile.jsp");
-	rd.forward(request,response);
+        String args[] = Convertors.SplitRequestPath(request);
+            if(args.length==4)
+        {
+            
+            RequestDispatcher rd=request.getRequestDispatcher("/EditProfile.jsp");
+            rd.forward(request,response); 
+           
+        }
+        else
+        {
+            HttpSession session=request.getSession();
+            LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+            System.out.println(args[2]);
+            System.out.println(lg.getUsername());
+            String account = (String) request.getAttribute("account");
+            if(account!=null){
+                User us = new User();
+                us.setCluster(cluster);
+                request.setAttribute("username",account);
+                request.setAttribute("firstname",us.getFirstname(account));
+                request.setAttribute("lastname",us.getLastname(account));
+                request.setAttribute("email",us.getEmail(account));
+                request.setAttribute("pic",us.getProfilePic(account));
+            }
+            else
+            {
+                Profile prof = (Profile) session.getAttribute("Profile");
+                request.setAttribute("username",prof.getUsername());
+                request.setAttribute("firstname",prof.getFirstname());
+                request.setAttribute("lastname",prof.getLastname());
+                request.setAttribute("email",prof.getEmail());
+                request.setAttribute("pic",prof.getPic());
+            }
+            RequestDispatcher rd=request.getRequestDispatcher("/UserProfile.jsp");
+            rd.forward(request,response); 
+        }
     }
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
         
-        //RequestDispatcher rd=request.getRequestDispatcher("/Profiled");
-	//rd.forward(request,response);
+        if(request.getAttribute("account")!=null)doGet(request,response);
+        else
+        {
+        HttpSession session=request.getSession();
+        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+        Profile prof = (Profile) session.getAttribute("Profile");
+        String firstname=request.getParameter("firstname");
+        String lastname=request.getParameter("lastname");
+        String email=request.getParameter("email");
+        String username= lg.getUsername();
+        prof.setFirstname(firstname);
+        prof.setLastname(lastname);
+        prof.setEmail(email);
+        User us=new User();
+        us.setCluster(cluster);
+        us.EditProfile(username,firstname,lastname,email);
+        
+	response.sendRedirect("/Instagrim/Profile/"+lg.getUsername());}
     }
 
 }

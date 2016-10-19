@@ -27,7 +27,7 @@ import uk.ac.dundee.computing.aec.instagrim.stores.*;
  *
  * @author Krasi
  */
-@WebServlet(name = "EditProfile", urlPatterns = {"/EditProfile"})
+@WebServlet(name = "EditProfilefff", urlPatterns = {"/EditProfilefff/*"})
 public class EditProfile extends HttpServlet {
 
     Cluster cluster=null;
@@ -87,7 +87,7 @@ public class EditProfile extends HttpServlet {
         us.setCluster(cluster);
         us.EditProfile(username,firstname,lastname,email);
         
-	response.sendRedirect("/Instagrim/Profiled");
+	response.sendRedirect("/Instagrim/Profile");
         
     }
 

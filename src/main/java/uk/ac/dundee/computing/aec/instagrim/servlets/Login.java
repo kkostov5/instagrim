@@ -67,15 +67,12 @@ public class Login extends HttpServlet {
         boolean isValid=us.IsValidUser(username, password);
         HttpSession session=request.getSession();
         System.out.println("Session in servlet "+session);
-        if(username == " " || password==" ")
-        {
-            response.sendRedirect("/Index");
-        }
-        else if (isValid){
+        if (isValid){
             LoggedIn lg= new LoggedIn();
             Profile prof = new Profile();
             lg.setLogedin();
             lg.setUsername(username);
+            prof.setUsername(username);
             prof.setFirstname(us.getFirstname(username));
             prof.setLastname(us.getLastname(username));
             prof.setEmail(us.getEmail(username));
@@ -83,7 +80,7 @@ public class Login extends HttpServlet {
             session.setAttribute("LoggedIn", lg);
             session.setAttribute("Profile", prof);
             System.out.println("Session in servlet "+session);
-            RequestDispatcher rd=request.getRequestDispatcher("/");
+            RequestDispatcher rd=request.getRequestDispatcher("/index.jsp");
 	    rd.forward(request,response);
             
         }else{

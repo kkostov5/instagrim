@@ -159,6 +159,7 @@ public class PicModel {
                 Pics.add(pic);
 
             }
+            session.close();
         }
         return Pics;
     }
@@ -225,12 +226,12 @@ public class PicModel {
         try {
             ResultSet rs = null;
             PreparedStatement ps = null;
-            ps = session.prepare("select user,comment from piccomments where picid =?");
+            ps = session.prepare("select user,comment from piccomments where picid =? ALLOW FILTERING");
             BoundStatement boundStatement = new BoundStatement(ps);
             rs = session.execute( // this is where the query is executed
                     boundStatement.bind( // here you are binding the 'boundStatement'
                             picid));
-
+            
             if (rs.isExhausted()) {
                 System.out.println("No Image returned");
                 return null;
@@ -238,14 +239,14 @@ public class PicModel {
                 int i = 0;
                 for (Row row : rs) {
                     get[i][0] = row.getString("user");
-                    System.out.println(get[i][0]);
+                    System.out.println(row.getString("user"));
                     get[i][1] = row.getString("comment");
-                    System.out.println(get[i][1]);
+                    System.out.println(row.getString("comment"));
                     i++;
                 }
             }
         } catch (Exception et) {
-            System.out.println("Can't get Pic" + et);
+            System.out.println("Can't get Comments" + et);
             return null;
         }
         session.close();

@@ -6,7 +6,6 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="uk.ac.dundee.computing.aec.instagrim.stores.*" %>
-<%//@page import="uk.ac.dundee.computing.aec.instagrim.pic.*" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -24,50 +23,49 @@
                     if (lg.getlogedin()) {
             %>
             <ul>
-            <li><a href="/Instagrim/Profiled">Profile</a></li>
-             <li><a href="/Instagrim/Upload">Upload</a></li>
-             <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
-             <li><a href="/Instagrim/Logout">Logout</a></li>
-             </ul></div><div id="body">
+                <li><a href="/Instagrim/Profile/<%=lg.getUsername()%>">Profile</a></li>
+                <li><a href="/Instagrim/Upload">Upload</a></li>
+                <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
+                <li><a href="/Instagrim/Logout">Logout</a></li>
+            </ul></div><div id="body">
 
-           <%
-
-               
-                Profile prof = (Profile) session.getAttribute("Profile");
-              if(prof==null){
-            %>
-            error
-             <%
-                 }
-else{
-            if(prof.getPic()==null)
-{
-            %>
-           <img src="images.jpg"></br>
-            <%
-                 }
-else{
-            %>
-            <a href="/Instagrim/Image/<%=prof.getPic()%>" ><img src="/Instagrim/Thumb/<%=prof.getPic()%>"></a><br/>
-            <%}%>
-            First name: <%=prof.getFirstname()%><br/>
-            Last name: <%=prof.getLastname()%><br/>
-            E-mail: <%=prof.getEmail()%><br/>
-            <button type="button"><a href="/Instagrim">Home</a></button>
             <%
                 
-                }
-                %>
-                <button type="button"><a href="EditProfile.jsp">Edit Profile</a></button>
+            if (request.getAttribute("pic") == null) {
+            %>
+
+            <img src="images.jpg"></br>
+            <%
+            } else {
+            %>
+            <a href="/Instagrim/Image/<%=request.getAttribute("pic")%>" ><img src="/Instagrim/Thumb/<%=request.getAttribute("pic")%>"></a><br/>
+                <%}%>
+            Username: <%=request.getAttribute("username")%><br/>
+            First name: <%=request.getAttribute("firstname")%><br/>
+            Last name: <%=request.getAttribute("lastname")%><br/>
+            E-mail: <%=request.getAttribute("email")%><br/>
+            </div>
+            <%
+             Profile prof = (Profile) session.getAttribute("Profile");
+             if (prof.getUsername() == request.getAttribute("username")) {
+           %>
+            <button type="button"><a href="/Instagrim">Home</a></button>
+            <button type="button"><a href="/Instagrim/Profile/<%=lg.getUsername()%>/EditProfile">Edit Profile</a></button>
         </div>
-                <%}
-                } else {
+        <%}
+else{
+%>
+        <button type="button"><a href="/Instagrim/Images/<%=request.getAttribute("username")%>"">User's images</a></button>
+        <%
+}
+                }
+           } else {
                 response.sendRedirect("/Instagrim");
-                    }%>
+            }%>
 
         <div id="footer">
             <div>
-            <p>&COPY; Krasimir Kostov</p>
+                <p>&COPY; Krasimir Kostov</p>
             </div>
         </div>
 

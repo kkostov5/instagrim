@@ -11,10 +11,18 @@ public class Profile {
     private String Lastname = null;
     private String email = null;
     private java.util.UUID image = null;
+    private String username = null;
     public void profile() {
 
     }
 
+    public void setUsername(String name) {
+        this.username = name;
+    }
+
+    public String getUsername() {
+        return username;
+    }
     public void setFirstname(String name) {
         this.Firstname = name;
     }

@@ -23,7 +23,7 @@
                     if (lg.getlogedin()) {
             %>
             <ul>
-            <li><a href="/Instagrim/Profiled">Profile</a></li>
+                <li><a href="/Instagrim/Profile/<%=lg.getUsername()%>">Profile</a></li>
              <li><a href="/Instagrim/Upload">Upload</a></li>
              <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
              <li><a href="/Instagrim/Logout">Logout</a></li>
@@ -34,7 +34,7 @@
                 Profile prof = (Profile) session.getAttribute("Profile");
             %>
                 <h3>Edit Profile</h3>
-                <form method="POST" action="EditProfile">
+                <form method="POST" action="UserProfile">
                     <table>
                         <tr>
                             <td>First Name</td><td> <input type="text" name="firstname" value="<%=prof.getFirstname()%>"></td>

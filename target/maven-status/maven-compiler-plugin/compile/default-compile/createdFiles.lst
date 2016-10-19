@@ -1,5 +1,6 @@
 uk/ac/dundee/computing/aec/instagrin/filters/ProtectPages.class
 uk/ac/dundee/computing/aec/instagrim/models/User.class
+uk/ac/dundee/computing/aec/instagrim/servlets/Search.class
 uk/ac/dundee/computing/aec/instagrim/stores/Pic.class
 uk/ac/dundee/computing/aec/instagrim/servlets/Login.class
 uk/ac/dundee/computing/aec/instagrim/servlets/UserProfile.class

@@ -18,7 +18,7 @@ import java.security.NoSuchAlgorithmException;
 
 import uk.ac.dundee.computing.aec.instagrim.lib.AeSimpleSHA1;
 import uk.ac.dundee.computing.aec.instagrim.lib.Convertors;
-import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
+import uk.ac.dundee.computing.aec.instagrim.stores.*;
 
 /**
  *
@@ -27,6 +27,7 @@ import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
 
 public class User {
     Cluster cluster;
+    
     public User(){
         
     }
@@ -48,7 +49,7 @@ public class User {
                 boundStatement.bind( // here you are binding the 'boundStatement'
                         username,EncodedPassword,firstname,lastname,email));
         //We are assuming this always works.  Also a transaction would be good here !
-        
+        session.close();
         return true;
     }
     
@@ -68,8 +69,9 @@ public class User {
         rs = session.execute( // this is where the query is executed
                 boundStatement.bind( // here you are binding the 'boundStatement'
                         username));
+        session.close();
         if (rs.isExhausted()) {
-            System.out.println("No Images returned");
+            System.out.println("No Validation returned");
             return false;
         } else {
             for (Row row : rs) {
@@ -78,6 +80,7 @@ public class User {
                 if (StoredPass.compareTo(EncodedPassword) == 0)
                     return true;
             }
+            
         }
     return false;  
     }
@@ -91,7 +94,7 @@ public class User {
                 boundStatement.bind( // here you are binding the 'boundStatement'
                         username));
         if (rs.isExhausted()) {
-            System.out.println("No Images returned");
+            System.out.println("No Validation returned");
             return false;
         } else {
             String test=null;
@@ -100,6 +103,7 @@ public class User {
                     test = row.getString("first_name");
                     
             }
+            session.close();
             if(test==null)return false;
              else  return true;  
         }
@@ -116,7 +120,7 @@ public class User {
                 boundStatement.bind( // here you are binding the 'boundStatement'
                         firstname,lastname,email,login));
         //We are assuming this always works.  Also a transaction would be good here !
-        
+        session.close();
         return true;
     }
     public String getFirstname(String username){
@@ -137,12 +141,13 @@ public class User {
                 boundStatement.bind( // here you are binding the 'boundStatement'
                         username));
         if (rs.isExhausted()) {
-            //System.out.println("No Images returned");
+            System.out.println("No firstname returned");
             return null;
         } else {
             for (Row row : rs) {
                  name = row.getString("first_name");
             }
+            session.close();
             return name;
         }
     }
@@ -164,12 +169,13 @@ public class User {
                 boundStatement.bind( // here you are binding the 'boundStatement'
                         username));
         if (rs.isExhausted()) {
-            //System.out.println("No Images returned");
+            System.out.println("No lastname returned");
             return null;
         } else {
             for (Row row : rs) {
                  name = row.getString("last_name");
             }
+            session.close();
             return name;
         }
     }
@@ -191,12 +197,13 @@ public class User {
                 boundStatement.bind( // here you are binding the 'boundStatement'
                         username));
         if (rs.isExhausted()) {
-            //System.out.println("No Images returned");
+            System.out.println("No email returned");
             return null;
         } else {
             for (Row row : rs) {
                  email = row.getString("email");
             }
+            session.close();
             return email;
         }
     }
@@ -218,7 +225,7 @@ public class User {
                             username));
 
             if (rs.isExhausted()) {
-                System.out.println("No Images returned");
+                System.out.println("No Profilepic returned");
                 return null;
             } else {
                 for (Row row : rs) {
@@ -236,6 +243,7 @@ public class User {
         return picid;
 
     }
+    
        public void setCluster(Cluster cluster) {
         this.cluster = cluster;
     }

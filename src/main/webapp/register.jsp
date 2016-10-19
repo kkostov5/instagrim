@@ -36,7 +36,7 @@
                             <td>Last Name</td><td> <input type="text" name="lastname" required></td>
                         </tr>
                         <tr>
-                            <td>E-mail</td><td> <input type="text" name="email" required></td>
+                            <td>E-mail</td><td> <input type="email" name="email" required></td>
                         </tr>
                         <tr>
                             <td>User Name</td><td> <input type="text" name="username" required></td>
