@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.aec.instagrim.lib.CassandraHosts;
 import uk.ac.dundee.computing.aec.instagrim.lib.Convertors;
 import uk.ac.dundee.computing.aec.instagrim.models.PicModel;
-import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
+import uk.ac.dundee.computing.aec.instagrim.stores.*;
 import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
 
 /**
@@ -42,16 +42,22 @@ public class Comments extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
-        String args[] = Convertors.SplitRequestPath(request);
+        String args[] = null;
+        args = Convertors.SplitRequestPath(request);
         PicModel tm = new PicModel();
         tm.setCluster(cluster);
-  
+        HttpSession session=request.getSession();
+        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
         String Image = args[2];
         System.out.println(Image);
+        System.out.println(Image);
+        System.out.println(Image);
+        boolean isUserPicture = tm.isUserPicture(lg.getUsername(),java.util.UUID.fromString(Image));
         p = tm.getPic(2,java.util.UUID.fromString(Image));
         p.setUUID(java.util.UUID.fromString(Image));
         String[][] comments = tm.getComments(java.util.UUID.fromString(Image));
         RequestDispatcher rd = request.getRequestDispatcher("/SingleImage.jsp");
+        request.setAttribute("isUserPicture",isUserPicture);
         request.setAttribute("Picture", p);
         request.setAttribute("Comments", comments);
         rd.forward(request, response);
@@ -62,13 +68,30 @@ public class Comments extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
+        String delete = request.getParameter("delete");
         PicModel tm = new PicModel();
-        tm.setCluster(cluster);
         HttpSession session=request.getSession();
         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+        tm.setCluster(cluster);
+        if(delete.equals("Yes"))
+        {
+            Profile prof = (Profile) session.getAttribute("Profile");
+            if((p.getSUUID()).equals(prof.getPic()))
+            {
+                tm.deletePicture(delete, java.util.UUID.fromString(p.getSUUID()), true);
+            }
+            else
+            {
+                tm.deletePicture(delete, java.util.UUID.fromString(p.getSUUID()), false);
+            }
+            RequestDispatcher rd = request.getRequestDispatcher("");
+            rd.forward(request, response);
+        }
+        else{
         tm.setComment(java.util.UUID.fromString(p.getSUUID()), lg.getUsername(), request.getParameter("comment"));
         RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
         rd.forward(request, response);
+        }
     }
 
 }

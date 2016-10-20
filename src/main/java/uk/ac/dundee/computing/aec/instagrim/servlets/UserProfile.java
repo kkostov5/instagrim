@@ -46,7 +46,7 @@ public class UserProfile extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
         
         String args[] = Convertors.SplitRequestPath(request);
-            if(args.length==4)
+            if(args.length==4)//CHECKSSSSSSS SO YOU DONT EDIT OTHERS PROFILES
         {
             
             RequestDispatcher rd=request.getRequestDispatcher("/EditProfile.jsp");

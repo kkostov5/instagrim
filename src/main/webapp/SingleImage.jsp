@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ page import="uk.ac.dundee.computing.aec.instagrim.stores.*" %>
+<%@page import="uk.ac.dundee.computing.aec.instagrim.stores.*" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -43,9 +43,15 @@
                 <table>
                     <tr>
                     <img src="/Instagrim/Thumb/<%=p.getSUUID()%>">
-                    
                     <%
-                        if (comments != null) {
+                        Boolean check = (Boolean) request.getAttribute("isUserPicture");
+                        if(check)
+                        {
+                            
+                    %>
+                    <input type="submit" name = "delete" value="Yes" onClick='window.confirm("Proceed with the deletion of the picture?")'>Delete Picture</button></br>
+                    <%
+                        }if (comments != null) {
                             int i = 0;%>
                     <td>User</td> <td>Comment</td>
                     <%

@@ -28,6 +28,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
+import java.security.Timestamp;
 import java.util.Date;
 import java.util.LinkedList;
 import javax.imageio.ImageIO;
@@ -164,6 +165,94 @@ public class PicModel {
         return Pics;
     }
 
+    public boolean isUserPicture(String username,java.util.UUID picid){
+        
+        Session session = cluster.connect("instagrim");
+        PreparedStatement ps = session.prepare("select picid from userpiclist where user =?");
+        ResultSet rs = null;
+        BoundStatement boundStatement = new BoundStatement(ps);
+        rs = session.execute( // this is where the query is executed
+                boundStatement.bind( // here you are binding the 'boundStatement'
+                        username));
+        session.close();
+        if (rs.isExhausted()) {
+            System.out.println("No Validation returned");
+            return false;
+        } else {
+            for (Row row : rs) {
+               
+                java.util.UUID picture = row.getUUID("picid");
+                if (picture.compareTo(picid) == 0)
+                    return true;
+            }
+            
+        }
+    return false;  
+    }
+    
+    public void deletePicture(String username,java.util.UUID picid,boolean profile){
+        
+        System.out.println("Starting deletion");
+        Session session = cluster.connect("instagrim");
+        PreparedStatement ps = session.prepare("Delete From Pics where picid=?");
+        BoundStatement boundStatement = new BoundStatement(ps);
+                session.execute( // this is where the query is executed
+                boundStatement.bind( // here you are binding the 'boundStatement'
+                        picid));
+        PreparedStatement ps1 = session.prepare("Select user,pic_added from userpiclist where user=? and picid=? ALLOW FIlTERING");
+        BoundStatement boundStatement1 = new BoundStatement(ps1);
+        ResultSet rs = null;
+        rs = session.execute( // this is where the query is executed
+                boundStatement1.bind( // here you are binding the 'boundStatement'
+                        username,picid));
+        if (rs.isExhausted()) {
+            System.out.println("No Deletion returned");
+        } else {
+            for (Row row : rs) {
+               
+                String name = row.getString("user");
+                Date time = row.getTimestamp("pic_added");
+                PreparedStatement ps4 = session.prepare("Delete From userpiclist where pic_added=? and user=?");
+                BoundStatement boundStatement4 = new BoundStatement(ps4);
+                session.execute( // this is where the query is executed
+                boundStatement4.bind( // here you are binding the 'boundStatement'
+                        time,name));
+
+            }
+            
+        }
+        
+        PreparedStatement ps5 = session.prepare("Select comment from piccomments where picid=? ALLOW FILTERING");
+        BoundStatement boundStatement5 = new BoundStatement(ps5);
+        ResultSet rs1 = null;
+        rs1 = session.execute( // this is where the query is executed
+                boundStatement5.bind( // here you are binding the 'boundStatement'
+                        picid));
+        if (rs.isExhausted()) {
+            System.out.println("No Deletion returned");
+        } else {
+            for (Row row : rs1) {
+               
+                String comment = row.getString("comment");
+                PreparedStatement ps6 = session.prepare("Delete From piccomments where comment=?");
+                BoundStatement boundStatement6 = new BoundStatement(ps6);
+                session.execute( // this is where the query is executed
+                boundStatement6.bind( // here you are binding the 'boundStatement'
+                        comment));
+
+            }
+            
+        }
+        if(profile == true)
+        {
+        PreparedStatement ps3 = session.prepare("update userprofiles set picid=? where login=?");
+        BoundStatement boundStatement3 = new BoundStatement(ps3);
+        session.execute( // this is where the query is executed
+                boundStatement3.bind( // here you are binding the 'boundStatement'
+                        null,username));
+        }
+        session.close();
+    }
     public Pic getPic(int image_type, java.util.UUID picid) {
         Session session = cluster.connect("instagrim");
         ByteBuffer bImage = null;
@@ -234,7 +323,7 @@ public class PicModel {
             
             if (rs.isExhausted()) {
                 System.out.println("No Image returned");
-                return null;
+                return null;// GOES HERE WHYYYY
             } else {
                 int i = 0;
                 for (Row row : rs) {
