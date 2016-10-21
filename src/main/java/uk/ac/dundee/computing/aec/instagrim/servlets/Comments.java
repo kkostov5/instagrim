@@ -42,12 +42,18 @@ public class Comments extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
-        String args[] = null;
+        HttpSession session=request.getSession();
+        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+        if(lg==null)
+        {
+            response.sendRedirect("/Instagrim");
+        }
+            else
+        {
+                String args[] = null;
         args = Convertors.SplitRequestPath(request);
         PicModel tm = new PicModel();
         tm.setCluster(cluster);
-        HttpSession session=request.getSession();
-        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
         String Image = args[2];
         System.out.println(Image);
         System.out.println(Image);
@@ -61,6 +67,7 @@ public class Comments extends HttpServlet {
         request.setAttribute("Picture", p);
         request.setAttribute("Comments", comments);
         rd.forward(request, response);
+                }
     }
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -68,7 +75,7 @@ public class Comments extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
-        String delete = request.getParameter("delete");
+        /*String delete = request.getParameter("delete");
         PicModel tm = new PicModel();
         HttpSession session=request.getSession();
         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
@@ -84,14 +91,20 @@ public class Comments extends HttpServlet {
             {
                 tm.deletePicture(delete, java.util.UUID.fromString(p.getSUUID()), false);
             }
-            RequestDispatcher rd = request.getRequestDispatcher("");
+            RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
             rd.forward(request, response);
         }
-        else{
+        else{*/
+        PicModel tm = new PicModel();
+        HttpSession session=request.getSession();
+        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+        tm.setCluster(cluster);
         tm.setComment(java.util.UUID.fromString(p.getSUUID()), lg.getUsername(), request.getParameter("comment"));
-        RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
-        rd.forward(request, response);
-        }
+        //RequestDispatcher rd = request.getRequestDispatcher("/Home");
+        //rd.forward(request, response);
+        response.sendRedirect("/Instagrim");
+      //  }*/
+        
     }
 
 }

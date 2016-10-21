@@ -80,8 +80,9 @@ public class Login extends HttpServlet {
             session.setAttribute("LoggedIn", lg);
             session.setAttribute("Profile", prof);
             System.out.println("Session in servlet "+session);
-            RequestDispatcher rd=request.getRequestDispatcher("/index.jsp");
-	    rd.forward(request,response);
+            //RequestDispatcher rd=request.getRequestDispatcher("/Home");
+	    //rd.forward(request,response);
+            response.sendRedirect("/Instagrim");
             
         }else{
             request.setAttribute("error","Invalid Username or Password");

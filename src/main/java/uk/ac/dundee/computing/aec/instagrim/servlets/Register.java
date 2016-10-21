@@ -72,9 +72,9 @@ public class Register extends HttpServlet {
         else 
         {
             us.RegisterUser(firstname,lastname,email,username, password);
-            RequestDispatcher rd=request.getRequestDispatcher("/Login");            
-            rd.forward(request,response);
-            //response.sendRedirect("/");
+            //RequestDispatcher rd=request.getRequestDispatcher("/Login");            
+            //rd.forward(request,response);
+            response.sendRedirect("/Instagrim");
         }
         
 	

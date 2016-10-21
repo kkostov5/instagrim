@@ -20,8 +20,6 @@
             <%
 
                 LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-                if (lg != null) {
-                    if (lg.getlogedin()) {
             %>
             <ul>
             <li><a href="/Instagrim/Profile/<%=lg.getUsername()%>">Profile</a></li>
@@ -30,7 +28,6 @@
              <li><a href="/Instagrim/Logout">Logout</a></li>
              </ul></div><div id="body"><div class="gallery">
                 <!--<li class="nav"><a href="/Instagrim/Images/majed">Sample Images</a></li>-->
-            <button type="button"><a href="/Instagrim">Home</a></button>
             <h1>Your Pics</h1>
             <%
                 java.util.LinkedList<Pic> lsPics = (java.util.LinkedList<Pic>) request.getAttribute("Pics");
@@ -54,10 +51,7 @@
                 }
                 %>
     </div></div>
-                <%}
-                } else {
-                response.sendRedirect("/Instagrim");
-                    }%>
+
         
         
     <div id="footer">

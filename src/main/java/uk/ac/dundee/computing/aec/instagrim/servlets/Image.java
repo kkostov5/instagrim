@@ -71,6 +71,14 @@ public class Image extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
+        HttpSession session=request.getSession();
+        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+        if(lg==null)
+        {
+            response.sendRedirect("/Instagrim");
+        }
+            else
+        {
         String args[] = Convertors.SplitRequestPath(request);
         int command;
         try {
@@ -91,6 +99,7 @@ public class Image extends HttpServlet {
                 break;
             default:
                 error("Bad Operator", response);
+        }
         }
     }
 
@@ -140,8 +149,9 @@ public class Image extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             insertPic(request,response);
-             RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
-             rd.forward(request, response);
+             //RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+             //rd.forward(request, response);
+             response.sendRedirect("/Instagrim");
 
     }
     
@@ -181,6 +191,7 @@ public class Image extends HttpServlet {
                     System.out.println("xxxzcx " + checkers);
                     Profile prof= (Profile)session.getAttribute("Profile");
                     User user = new User();
+                    user.setCluster(cluster);
                     prof.setPic(user.getProfilePic(lg.getUsername()));
                 }
                 is.close();

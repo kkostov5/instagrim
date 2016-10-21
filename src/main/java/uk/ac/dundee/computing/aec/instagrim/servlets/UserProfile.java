@@ -45,6 +45,14 @@ public class UserProfile extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
         
+        HttpSession session=request.getSession();
+        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+        if(lg==null)
+        {
+            response.sendRedirect("/Instagrim");
+        }
+            else
+        {
         String args[] = Convertors.SplitRequestPath(request);
             if(args.length==4)//CHECKSSSSSSS SO YOU DONT EDIT OTHERS PROFILES
         {
@@ -55,8 +63,6 @@ public class UserProfile extends HttpServlet {
         }
         else
         {
-            HttpSession session=request.getSession();
-            LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
             System.out.println(args[2]);
             System.out.println(lg.getUsername());
             String account = (String) request.getAttribute("account");
@@ -77,9 +83,15 @@ public class UserProfile extends HttpServlet {
                 request.setAttribute("lastname",prof.getLastname());
                 request.setAttribute("email",prof.getEmail());
                 request.setAttribute("pic",prof.getPic());
+                System.out.println(prof.getPic());
+                System.out.println(prof.getPic());
+                System.out.println(prof.getPic());System.out.println(prof.getPic());
+                
+                
             }
             RequestDispatcher rd=request.getRequestDispatcher("/UserProfile.jsp");
             rd.forward(request,response); 
+        }
         }
     }
     

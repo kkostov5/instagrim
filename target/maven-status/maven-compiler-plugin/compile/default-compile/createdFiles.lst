@@ -8,7 +8,6 @@ uk/ac/dundee/computing/aec/instagrim/stores/LoggedIn.class
 uk/ac/dundee/computing/aec/instagrim/servlets/Upload.class
 uk/ac/dundee/computing/aec/instagrim/models/PicModel.class
 uk/ac/dundee/computing/aec/instagrim/lib/CassandraHosts.class
-uk/ac/dundee/computing/aec/instagrim/servlets/EditProfile.class
 uk/ac/dundee/computing/aec/instagrim/servlets/Register.class
 uk/ac/dundee/computing/aec/instagrim/lib/AeSimpleSHA1.class
 uk/ac/dundee/computing/aec/instagrim/lib/Convertors.class

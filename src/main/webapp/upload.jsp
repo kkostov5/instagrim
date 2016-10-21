@@ -22,8 +22,6 @@
             <%
 
                 LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-                if (lg != null) {
-                    if (lg.getlogedin()) {
             %>
             <ul>
             <li><a href="/Instagrim/Profile/<%=lg.getUsername()%>">Profile</a></li>
@@ -62,10 +60,7 @@
                     <input type="submit" value="Submit">
                 </form>
         </div>
-                <%}
-                } else {
-                response.sendRedirect("/Instagrim");
-                    }%>
+
                    
         
         

@@ -19,8 +19,6 @@
             <%
 
                 LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-                if (lg != null) {
-                    if (lg.getlogedin()) {
             %>
             <ul>
             <li><a href="/Instagrim/Profile/<%=lg.getUsername()%>">Profile</a></li>
@@ -49,7 +47,7 @@
                         {
                             
                     %>
-                    <input type="submit" name = "delete" value="Yes" onClick='window.confirm("Proceed with the deletion of the picture?")'>Delete Picture</button></br>
+                  <!--  <input type="submit" name = "delete" value="Yes" onClick='window.confirm("Proceed with the deletion of the picture?")'>Delete Picture</button></br>-->
                     <%
                         }if (comments != null) {
                             int i = 0;%>
@@ -70,11 +68,9 @@
                 <input type="submit" value="Comment"> 
             </form>
 <% }
-                    %></div></div>
-                <%}
-                } else {
-                        response.sendRedirect("/Instagrim");
-                    }%>
+                    %>
+                 </div></div>
+
 
         
 <!--<a href="/Instagrim/SingleImage.jsp" ><img src="/Instagrim/Thumb/<%//=p.getSUUID()%>"></a><br/>-->

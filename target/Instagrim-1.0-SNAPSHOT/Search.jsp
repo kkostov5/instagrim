@@ -18,10 +18,7 @@
         <div id="header">
             <a href="/Instagrim"><h1>InstaGrim</h1></a>
             <%
-
                 LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-                if (lg != null) {
-                    if (lg.getlogedin()) {
             %>
             <ul>
             <li><a href="/Instagrim/Profile/<%=lg.getUsername()%>">Profile</a></li>
@@ -48,18 +45,6 @@ out.println("<font color=red>"+login_msg+"</font>");
                 
                 
         </div>
-                <%}
-                } else {
-                %>
-            
-                <ul>
-                    <li><a href="/Instagrim/Register">Register</a></li>
-                    <li><a href="/Instagrim/Login">Login</a></li>
-                </ul></div>
-                <div id="body">
-            </div>
-                <%
-                    }%>
                    
         
         <div id="footer">

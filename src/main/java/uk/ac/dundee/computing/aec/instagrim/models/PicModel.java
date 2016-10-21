@@ -80,13 +80,13 @@ public class PicModel {
             }
 
             PreparedStatement psInsertPic = session.prepare("insert into pics ( picid, image,thumb,processed, user, interaction_time,imagelength,thumblength,processedlength,type,name) values(?,?,?,?,?,?,?,?,?,?,?)");
-            PreparedStatement psInsertPicToUser = session.prepare("insert into userpiclist ( picid, user, profilepic, pic_added) values(?,?,?,?)");
+            PreparedStatement psInsertPicToUser = session.prepare("insert into userpiclist ( picid, user, pic_added) values(?,?,?)");
             BoundStatement bsInsertPic = new BoundStatement(psInsertPic);
             BoundStatement bsInsertPicToUser = new BoundStatement(psInsertPicToUser);
 
             Date DateAdded = new Date();
             session.execute(bsInsertPic.bind(picid, buffer, thumbbuf, processedbuf, user, DateAdded, length, thumblength, processedlength, type, name));
-            session.execute(bsInsertPicToUser.bind(picid, user, profile, DateAdded));
+            session.execute(bsInsertPicToUser.bind(picid, user, DateAdded));
             session.close();
 
         } catch (IOException ex) {
@@ -192,7 +192,7 @@ public class PicModel {
     
     public void deletePicture(String username,java.util.UUID picid,boolean profile){
         
-        System.out.println("Starting deletion");
+        /*System.out.println("Starting deletion");
         Session session = cluster.connect("instagrim");
         PreparedStatement ps = session.prepare("Delete From Pics where picid=?");
         BoundStatement boundStatement = new BoundStatement(ps);
@@ -251,7 +251,7 @@ public class PicModel {
                 boundStatement3.bind( // here you are binding the 'boundStatement'
                         null,username));
         }
-        session.close();
+        session.close();*/
     }
     public Pic getPic(int image_type, java.util.UUID picid) {
         Session session = cluster.connect("instagrim");

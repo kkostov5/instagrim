@@ -19,8 +19,6 @@
             <%
 
                 LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-                if (lg != null) {
-                    if (lg.getlogedin()) {
             %>
             <ul>
                 <li><a href="/Instagrim/Profile/<%=lg.getUsername()%>">Profile</a></li>
@@ -38,30 +36,27 @@
             <%
             } else {
             %>
-            <a href="/Instagrim/Image/<%=request.getAttribute("pic")%>" ><img src="/Instagrim/Thumb/<%=request.getAttribute("pic")%>"></a><br/>
+            <a href="/Instagrim/Image/${pic}" ><img src="/Instagrim/Thumb/${pic}"></a><br/>
                 <%}%>
-            Username: <%=request.getAttribute("username")%><br/>
-            First name: <%=request.getAttribute("firstname")%><br/>
-            Last name: <%=request.getAttribute("lastname")%><br/>
-            E-mail: <%=request.getAttribute("email")%><br/>
+            Username: ${username}<br/>
+            First name: ${firstname}<br/>
+            Last name: ${lastname}<br/>
+            E-mail: ${email}<br/>
             </div>
             <%
              Profile prof = (Profile) session.getAttribute("Profile");
              if (prof.getUsername() == request.getAttribute("username")) {
            %>
-            <button type="button"><a href="/Instagrim">Home</a></button>
             <button type="button"><a href="/Instagrim/Profile/<%=lg.getUsername()%>/EditProfile">Edit Profile</a></button>
         </div>
         <%}
 else{
 %>
-        <button type="button"><a href="/Instagrim/Images/<%=request.getAttribute("username")%>"">User's images</a></button>
+        <button type="button"><a href="/Instagrim/Images/${username}">User's images</a></button>
         <%
 }
-                }
-           } else {
-                response.sendRedirect("/Instagrim");
-            }%>
+                
+%>
 
         <div id="footer">
             <div>
