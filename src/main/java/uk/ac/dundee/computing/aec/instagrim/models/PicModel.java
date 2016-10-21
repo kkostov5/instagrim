@@ -30,6 +30,7 @@ import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.security.Timestamp;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.LinkedList;
 import javax.imageio.ImageIO;
 import static org.imgscalr.Scalr.*;
@@ -309,38 +310,55 @@ public class PicModel {
 
     }
 
-    public String[][] getComments(java.util.UUID picid) {
+    public java.util.List<Row> getComments(java.util.UUID picid) {
         Session session = cluster.connect("instagrim");
-        String[][] get = null;
+        
+        System.out.println(picid);
+        java.util.List<Row> results = null;
         try {
-            ResultSet rs = null;
+            
+            ResultSet rs;
             PreparedStatement ps = null;
             ps = session.prepare("select user,comment from piccomments where picid =? ALLOW FILTERING");
             BoundStatement boundStatement = new BoundStatement(ps);
             rs = session.execute( // this is where the query is executed
                     boundStatement.bind( // here you are binding the 'boundStatement'
                             picid));
+            session.close();
             
             if (rs.isExhausted()) {
                 System.out.println("No Image returned");
-                return null;// GOES HERE WHYYYY
+                return null;
             } else {
-                int i = 0;
+                /*int i = 0;
+                
                 for (Row row : rs) {
-                    get[i][0] = row.getString("user");
+                 comment[i] = row.getString("user");
+                 i++;*/
+                 results= rs.all();
+            //}
+                /*
+                java.util.List<Row> results = rs.all();
+                Iterator numb = results.iterator();
+                while(numb.hasNext()) {
+                    Row row = (Row) numb.next();
                     System.out.println(row.getString("user"));
-                    get[i][1] = row.getString("comment");
-                    System.out.println(row.getString("comment"));
+                    get[i]=row.getString("user");
+                    //get[i][1] = row.getString("comment");
+                    //System.out.println(row.getString("comment"));
                     i++;
                 }
+                return get;*/
+                
             }
         } catch (Exception et) {
-            System.out.println("Can't get Comments" + et);
+            System.out.println("Can't get Comments " + et);// goooooooes herrreeeeee WHHWHWHWHYWYWYWYYWYWYYWYWYWYWYYW
             return null;
         }
-        session.close();
+        return results;
+        //session.close();
 
-        return get;
+        //return null;
 
     }
 

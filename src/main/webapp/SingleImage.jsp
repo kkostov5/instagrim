@@ -4,6 +4,8 @@
     Author     : Krasi
 --%>
 
+<%@page import="java.util.Iterator"%>
+<%@page import="com.datastax.driver.core.Row"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="uk.ac.dundee.computing.aec.instagrim.stores.*" %>
 <!DOCTYPE html>
@@ -24,12 +26,13 @@
             <li><a href="/Instagrim/Profile/<%=lg.getUsername()%>">Profile</a></li>
              <li><a href="/Instagrim/Upload">Upload</a></li>
              <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
+             <li><a href="/Instagrim/Search">Search Users</a></li>
              <li><a href="/Instagrim/Logout">Logout</a></li>
              </ul></div><div id="body"><div class="gallery">
             <h1>Single Picture</h1>
             <%
                 Pic p = (Pic) request.getAttribute("Picture");
-                String[][] comments = (String[][]) request.getAttribute("Comments");
+                java.util.List<Row> comments = (java.util.List<Row>) request.getAttribute("Comments");
                 if (p == null) {
             %>
             <p>No Pictures found</p>
@@ -50,13 +53,21 @@
                   <!--  <input type="submit" name = "delete" value="Yes" onClick='window.confirm("Proceed with the deletion of the picture?")'>Delete Picture</button></br>-->
                     <%
                         }if (comments != null) {
-                            int i = 0;%>
+                            int i = 0;
+                    
+                    
+                    
+                    %>
                     <td>User</td> <td>Comment</td>
                     <%
-                            while (comments.length < i) {
+                        Iterator<Row> iterator;
+                        iterator = comments.iterator();
+                        while (iterator.hasNext()) {
+                        Row row = (Row) iterator.next();
+                           // while (comments.length < i) {
 
                     %>
-                    <tr><td></td><td><%=comments[i][0]%></td> <td><%=comments[i][1]%></td></tr>
+                    <tr><td><%=row.getString("user")%></td> <td><%=row.getString("comment")%></td></tr>
                     <%
                                     i++;
                                 }

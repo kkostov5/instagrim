@@ -87,7 +87,7 @@ public class User {
     
     public boolean IsExistingUser(String username){
         Session session = cluster.connect("instagrim");
-        PreparedStatement ps = session.prepare("select first_name from userprofiles where login =?");
+        PreparedStatement ps = session.prepare("select login from userprofiles where login =?");
         ResultSet rs = null;
         BoundStatement boundStatement = new BoundStatement(ps);
         rs = session.execute( // this is where the query is executed
@@ -100,7 +100,7 @@ public class User {
             String test=null;
             for (Row row : rs) {
                 
-                    test = row.getString("first_name");
+                    test = row.getString("login");
                     
             }
             session.close();

@@ -6,6 +6,7 @@
 package uk.ac.dundee.computing.aec.instagrim.servlets;
 
 import com.datastax.driver.core.Cluster;
+import com.datastax.driver.core.Row;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -61,7 +62,7 @@ public class Comments extends HttpServlet {
         boolean isUserPicture = tm.isUserPicture(lg.getUsername(),java.util.UUID.fromString(Image));
         p = tm.getPic(2,java.util.UUID.fromString(Image));
         p.setUUID(java.util.UUID.fromString(Image));
-        String[][] comments = tm.getComments(java.util.UUID.fromString(Image));
+        java.util.List<Row> comments = tm.getComments(java.util.UUID.fromString(Image));
         RequestDispatcher rd = request.getRequestDispatcher("/SingleImage.jsp");
         request.setAttribute("isUserPicture",isUserPicture);
         request.setAttribute("Picture", p);
@@ -102,7 +103,8 @@ public class Comments extends HttpServlet {
         tm.setComment(java.util.UUID.fromString(p.getSUUID()), lg.getUsername(), request.getParameter("comment"));
         //RequestDispatcher rd = request.getRequestDispatcher("/Home");
         //rd.forward(request, response);
-        response.sendRedirect("/Instagrim");
+        
+        response.sendRedirect("/Instagrim/Comments/"+p.getSUUID());
       //  }*/
         
     }

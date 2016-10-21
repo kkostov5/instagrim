@@ -55,6 +55,8 @@ public final class Keyspaces {
                     + "      comment text PRIMARY KEY,\n"
                     + "      picid uuid \n"
                     + "  );";
+                 //   + "  Create index pictureid on instagrim.piccomments( picid );"
+                 //   + "  Create index user_name on instagrim.piccomments( user );";    
             Session session = c.connect();
             try {
                 PreparedStatement statement = session
@@ -100,8 +102,13 @@ public final class Keyspaces {
             try {
                 //SimpleStatement cqlQuery1 = new SimpleStatement("DROP TABLE  instagrim.piccomments;");
                 //session.execute(cqlQuery1);
+                
                 SimpleStatement cqlQuery = new SimpleStatement(CreatePictureComments);
                 session.execute(cqlQuery);
+                //SimpleStatement cqlQuery2 = new SimpleStatement("CREATE INDEX pictureid on instagrim.piccomments( picid );");
+                //session.execute(cqlQuery2);
+                //SimpleStatement cqlQuery3 = new SimpleStatement("CREATE_INDEX user_name on instagrim.piccomments( user );");
+                //session.execute(cqlQuery3);
                 
             } catch (Exception et) {
                 System.out.println("Can't create Picture Comments " + et);
