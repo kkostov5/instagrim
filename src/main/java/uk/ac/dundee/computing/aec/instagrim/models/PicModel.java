@@ -366,11 +366,12 @@ public class PicModel {
         Session session = cluster.connect("instagrim");
 
             PreparedStatement ps = null;
-            ps = session.prepare("Insert into piccomments (user,comment,picid) values(?,?,?)");
+            Date DateAdded = new Date();
+            ps = session.prepare("Insert into piccomments (user,comment,picid,pic_added) values(?,?,?,?)");
             BoundStatement boundStatement = new BoundStatement(ps);
             session.execute( // this is where the query is executed
                     boundStatement.bind( // here you are binding the 'boundStatement'
-                            username,comment,picid));
+                            username,comment,picid,DateAdded));
         session.close();
 
     }

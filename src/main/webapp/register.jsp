@@ -45,6 +45,7 @@ String login_msg=(String)request.getAttribute("error");
 if(login_msg!=null)
 out.println("<font color=red>"+login_msg+"</font>");
 %>
+                        
                         </tr>
                         <tr>
                             <td>Password</td><td><input type="password" name="password" pattern=".{5,10}" required title="5 to 10 characters"></td>

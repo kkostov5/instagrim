@@ -52,9 +52,11 @@ public final class Keyspaces {
                     + "  );";
             String CreatePictureComments = "CREATE TABLE if not exists instagrim.piccomments (\n"
                     + "      user text ,\n"
-                    + "      comment text PRIMARY KEY,\n"
-                    + "      picid uuid \n"
-                    + "  );";
+                    + "      comment text,\n"
+                    + "      picid uuid, \n"
+                    + "      pic_added timestamp, \n"
+                    + "PRIMARY KEY (picid,pic_added)\n"
+                    + ")WITH CLUSTERING ORDER BY (pic_added asc);";
                  //   + "  Create index pictureid on instagrim.piccomments( picid );"
                  //   + "  Create index user_name on instagrim.piccomments( user );";    
             Session session = c.connect();
@@ -107,7 +109,7 @@ public final class Keyspaces {
                 session.execute(cqlQuery);
                 //SimpleStatement cqlQuery2 = new SimpleStatement("CREATE INDEX pictureid on instagrim.piccomments( picid );");
                 //session.execute(cqlQuery2);
-                //SimpleStatement cqlQuery3 = new SimpleStatement("CREATE_INDEX user_name on instagrim.piccomments( user );");
+                //SimpleStatement cqlQuery3 = new SimpleStatement("CREATE INDEX user_name on instagrim.piccomments( user );");
                 //session.execute(cqlQuery3);
                 
             } catch (Exception et) {
