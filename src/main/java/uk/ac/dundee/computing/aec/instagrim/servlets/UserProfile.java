@@ -51,16 +51,26 @@ public class UserProfile extends HttpServlet {
         {
             response.sendRedirect("/Instagrim");
         }
-            else
+        else
         {
         String args[] = Convertors.SplitRequestPath(request);
             if(args.length==4)//CHECKSSSSSSS SO YOU DONT EDIT OTHERS PROFILES
         {
-            
+            if(args[2].equals(lg.getUsername()))
+            {
             RequestDispatcher rd=request.getRequestDispatcher("/EditProfile.jsp");
             rd.forward(request,response); 
+            }
+            else
+            {
+                response.sendRedirect("/Instagrim");
+            }
            
         }
+            else if(args.length>4)
+            {
+                response.sendRedirect("/Instagrim");
+            }
         else
         {
             System.out.println(args[2]);
@@ -85,7 +95,8 @@ public class UserProfile extends HttpServlet {
                 request.setAttribute("pic",prof.getPic());
                 System.out.println(prof.getPic());
                 System.out.println(prof.getPic());
-                System.out.println(prof.getPic());System.out.println(prof.getPic());
+                System.out.println(prof.getPic());
+                System.out.println(prof.getPic());
                 
                 
             }

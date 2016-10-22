@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -76,36 +76,36 @@ public class Comments extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
-        /*String delete = request.getParameter("delete");
+        String delete = request.getParameter("delete");
         PicModel tm = new PicModel();
         HttpSession session=request.getSession();
         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
         tm.setCluster(cluster);
-        if(delete.equals("Yes"))
+        if(delete!=null)
         {
             Profile prof = (Profile) session.getAttribute("Profile");
             if((p.getSUUID()).equals(prof.getPic()))
             {
-                tm.deletePicture(delete, java.util.UUID.fromString(p.getSUUID()), true);
+                tm.deletePicture(prof.getUsername(), java.util.UUID.fromString(p.getSUUID()), true);
+                prof.setPic(null);
             }
             else
             {
-                tm.deletePicture(delete, java.util.UUID.fromString(p.getSUUID()), false);
+                tm.deletePicture(prof.getUsername(), java.util.UUID.fromString(p.getSUUID()), false);
             }
-            RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
-            rd.forward(request, response);
+            response.sendRedirect("/Instagrim/Images/"+lg.getUsername());
         }
-        else{*/
-        PicModel tm = new PicModel();
-        HttpSession session=request.getSession();
-        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+        else{
+       // PicModel tm = new PicModel();
+        //HttpSession session=request.getSession();
+        //LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
         tm.setCluster(cluster);
         tm.setComment(java.util.UUID.fromString(p.getSUUID()), lg.getUsername(), request.getParameter("comment"));
         //RequestDispatcher rd = request.getRequestDispatcher("/Home");
         //rd.forward(request, response);
         
         response.sendRedirect("/Instagrim/Comments/"+p.getSUUID());
-      //  }*/
+        }
         
     }
 

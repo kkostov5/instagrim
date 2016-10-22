@@ -50,7 +50,7 @@
                         {
                             
                     %>
-                  <!--  <input type="submit" name = "delete" value="Yes" onClick='window.confirm("Proceed with the deletion of the picture?")'>Delete Picture</button></br>-->
+                   <input type="submit" name = "delete" value="Delete Picture" onClick='window.confirm("Proceed with the deletion of the picture?")'></button></br>
                     <%
                         }if (comments != null) {
                             int i = 0;
