@@ -42,8 +42,14 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
         
+        HttpSession session=request.getSession();
+        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+                if (lg == null) {
         RequestDispatcher rd=request.getRequestDispatcher("/login.jsp");
 	rd.forward(request,response);
+         } else {
+                        response.sendRedirect("/Instagrim");
+                    }
     }
     /**
      * Handles the HTTP <code>POST</code> method.

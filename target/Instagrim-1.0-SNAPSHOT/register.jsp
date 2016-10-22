@@ -56,10 +56,7 @@ out.println("<font color=red>"+login_msg+"</font>");
                 </form>
 <%
                 } else {
-                %>
-                You are already logged in.
-                <button type="button"><a href="/Instagrim">Menu</a></button>
-                <%
+                        response.sendRedirect("/Instagrim");
                     }%>
            
         </div>
