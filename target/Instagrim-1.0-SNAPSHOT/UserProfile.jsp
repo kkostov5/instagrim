@@ -29,7 +29,7 @@
             </ul></div><div id="body">
 
             <%
-                
+             
             if (request.getAttribute("pic") == null) {
             %>
 

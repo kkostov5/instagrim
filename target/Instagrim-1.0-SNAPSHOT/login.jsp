@@ -40,7 +40,7 @@ out.println("<font color=red>"+login_msg+"</font>");
 %>
                     <input type="submit" value="Login"> </br>
                 </form>
-                    <button type="button"><a href="/Instagrim/Register">Register</a></button></br>
+                    
         </div>
         <div id="footer">
             <div>

@@ -49,7 +49,6 @@
                     <br/>
                     <input type="submit" value="Edit"> 
                 </form>
-                <button type="button"><a href="/Instagrim">Menu</a></button>
         </div>
               
            

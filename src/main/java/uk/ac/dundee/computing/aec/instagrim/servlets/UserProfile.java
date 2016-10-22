@@ -54,7 +54,7 @@ public class UserProfile extends HttpServlet {
         else
         {
         String args[] = Convertors.SplitRequestPath(request);
-            if(args.length==4)//CHECKSSSSSSS SO YOU DONT EDIT OTHERS PROFILES
+            if(args.length==4)
         {
             if(args[2].equals(lg.getUsername()))
             {
