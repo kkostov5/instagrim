@@ -73,21 +73,26 @@ public class UserProfile extends HttpServlet {
             }
         else
         {
+            Profile prof = (Profile) session.getAttribute("Profile");
             System.out.println(args[2]);
             System.out.println(lg.getUsername());
-            String account = (String) request.getAttribute("account");
-            if(account!=null){
+            //String account = (String) session.getAttribute("account");
+            //System.out.println("THE ACCOUNT IS "+account);
+            if(!args[2].equals(lg.getUsername())){
                 User us = new User();
                 us.setCluster(cluster);
-                request.setAttribute("username",account);
-                request.setAttribute("firstname",us.getFirstname(account));
-                request.setAttribute("lastname",us.getLastname(account));
-                request.setAttribute("email",us.getEmail(account));
-                request.setAttribute("pic",us.getProfilePic(account));
+                request.setAttribute("username",args[2]);
+                request.setAttribute("firstname",us.getFirstname(args[2]));
+                request.setAttribute("lastname",us.getLastname(args[2]));
+                request.setAttribute("email",us.getEmail(args[2]));
+                request.setAttribute("pic",us.getProfilePic(args[2]));
+                if(!prof.getFollowing().contains(args[2]))request.setAttribute("follower","Follow");
+                else request.setAttribute("follower","Unfollow");
+                //session.setAttribute("account", null);
             }
             else
             {
-                Profile prof = (Profile) session.getAttribute("Profile");
+                //Profile prof = (Profile) session.getAttribute("Profile");
                 request.setAttribute("username",prof.getUsername());
                 request.setAttribute("firstname",prof.getFirstname());
                 request.setAttribute("lastname",prof.getLastname());
@@ -109,10 +114,19 @@ public class UserProfile extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
         
-        if(request.getAttribute("account")!=null)doGet(request,response);
+        String check = request.getParameter("Follow");
+        HttpSession session=request.getSession();
+        if(session.getAttribute("account")!=null)doGet(request,response);
+        else if(check!=null)
+        {
+            System.out.println(request.getParameter("Follow"));
+            RequestDispatcher rd=request.getRequestDispatcher("/Following");
+            rd.forward(request,response);
+            //response.sendRedirect("/Instagrim/Following");
+        }
         else
         {
-        HttpSession session=request.getSession();
+        //HttpSession session=request.getSession();
         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
         Profile prof = (Profile) session.getAttribute("Profile");
         String firstname=request.getParameter("firstname");

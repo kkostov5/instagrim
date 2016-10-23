@@ -24,6 +24,7 @@
                 <li><a href="/Instagrim/Profile/<%=lg.getUsername()%>">Profile</a></li>
                 <li><a href="/Instagrim/Upload">Upload</a></li>
                 <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
+                <li><a href="/Instagrim/Following">Following</a></li>
                 <li><a href="/Instagrim/Search">Search Users</a></li>
                 <li><a href="/Instagrim/Logout">Logout</a></li>
             </ul></div><div id="body">
@@ -33,11 +34,11 @@
             if (request.getAttribute("pic") == null) {
             %>
 
-            <img src="images.jpg"></br>
+            <img src="/Instagrim/picture.jpg"/></br>
             <%
             } else {
             %>
-            <a href="/Instagrim/Image/${pic}" ><img src="/Instagrim/Thumb/${pic}"></a><br/>
+            <a href="/Instagrim/Comments/${pic}" ><img src="/Instagrim/Thumb/${pic}"></a><br/>
                 <%}%>
             Username: ${username}<br/>
             First name: ${firstname}<br/>
@@ -54,6 +55,10 @@
 else{
 %>
         <button type="button"><a href="/Instagrim/Images/${username}">User's images</a></button>
+        <form method="POST" action="Following">
+            <input type="hidden" name="Followee" value="${username}">
+            <input type="submit" name="Follow" value="${follower}">
+        </form>
         <%
 }
                 

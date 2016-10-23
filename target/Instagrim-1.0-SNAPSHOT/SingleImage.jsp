@@ -26,10 +26,11 @@
             <li><a href="/Instagrim/Profile/<%=lg.getUsername()%>">Profile</a></li>
              <li><a href="/Instagrim/Upload">Upload</a></li>
              <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
+             <li><a href="/Instagrim/Following">Following</a></li>
              <li><a href="/Instagrim/Search">Search Users</a></li>
              <li><a href="/Instagrim/Logout">Logout</a></li>
              </ul></div><div id="body"><div class="gallery">
-            <h1>Single Picture</h1>
+            
             <%
                 Pic p = (Pic) request.getAttribute("Picture");
                 java.util.List<Row> comments = (java.util.List<Row>) request.getAttribute("Comments");
@@ -43,14 +44,14 @@
             <form method="POST"  action="Comments">
                 <table>
                     <tr>
-                    <img src="/Instagrim/Thumb/<%=p.getSUUID()%>">
+                    <img src="/Instagrim/Thumb/<%=p.getSUUID()%>"></br>
                     <%
                         Boolean check = (Boolean) request.getAttribute("isUserPicture");
                         if(check)
                         {
                             
                     %>
-                   <input type="submit" name = "delete" value="Delete Picture" onClick='window.confirm("Proceed with the deletion of the picture?")'></button></br>
+                   <input type="submit" name = "delete" value="Delete Picture" onClick="if (confirm('Are you sure you want to delete?')) { return true; } else { return false; }"></br>
                     <%
                         }if (comments != null) {
                             int i = 0;

@@ -77,6 +77,7 @@ public class Comments extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
         String delete = request.getParameter("delete");
+        System.out.println(delete);
         PicModel tm = new PicModel();
         HttpSession session=request.getSession();
         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");

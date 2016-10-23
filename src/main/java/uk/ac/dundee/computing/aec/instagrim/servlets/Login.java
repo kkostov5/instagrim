@@ -9,6 +9,9 @@ package uk.ac.dundee.computing.aec.instagrim.servlets;
 import com.datastax.driver.core.Cluster;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -83,6 +86,7 @@ public class Login extends HttpServlet {
             prof.setLastname(us.getLastname(username));
             prof.setEmail(us.getEmail(username));
             prof.setPic(us.getProfilePic(username));
+            prof.setFollowing(us.getFollowing(username));
             session.setAttribute("LoggedIn", lg);
             session.setAttribute("Profile", prof);
             System.out.println("Session in servlet "+session);

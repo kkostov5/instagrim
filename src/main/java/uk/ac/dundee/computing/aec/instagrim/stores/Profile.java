@@ -5,6 +5,8 @@
  */
 package uk.ac.dundee.computing.aec.instagrim.stores;
 
+import java.util.Set;
+
 public class Profile {
 
     private String Firstname = null;
@@ -12,6 +14,8 @@ public class Profile {
     private String email = null;
     private java.util.UUID image = null;
     private String username = null;
+    private Set<String> following = null;
+    
     public void profile() {
 
     }
@@ -51,5 +55,11 @@ public class Profile {
     public String getPic() {
         if(image == null)return null;
         else return image.toString();
+    }
+    public void setFollowing(Set<String> following) {
+        this.following = following;
+    }
+    public Set<String> getFollowing() {
+        return following;
     }
 }

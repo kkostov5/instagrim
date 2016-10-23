@@ -15,6 +15,8 @@ import com.datastax.driver.core.Session;
 import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashSet;
+import java.util.Set;
 
 import uk.ac.dundee.computing.aec.instagrim.lib.AeSimpleSHA1;
 import uk.ac.dundee.computing.aec.instagrim.lib.Convertors;
@@ -83,6 +85,61 @@ public class User {
             
         }
     return false;  
+    }
+    
+    public Set<String> getFollowing(String username){
+        
+        Session session = cluster.connect("instagrim");
+        Set<String> names = null;
+        PreparedStatement ps = session.prepare("select following from userprofiles where login =?");
+        ResultSet rs = null;
+        BoundStatement boundStatement = new BoundStatement(ps);
+        rs = session.execute( // this is where the query is executed
+                boundStatement.bind( // here you are binding the 'boundStatement'
+                        username));
+        session.close();
+        if (rs.isExhausted()) {
+            System.out.println("No Validation returned");
+            return null;
+        } else {
+            for (Row row : rs) {
+               names = row.getSet("following", String.class);
+               System.out.println(names);
+                
+            }
+            return names;
+        }
+    
+    }
+    
+    public void addFollowing(String username,String followee){
+        
+        Session session = cluster.connect("instagrim");
+        PreparedStatement ps = session.prepare("UPDATE userprofiles SET following = following + ? WHERE login = ?");
+        BoundStatement boundStatement = new BoundStatement(ps);
+        Set<String> toADD = new HashSet<>();
+        boolean add;
+        add = toADD.add(followee);
+        session.execute( // this is where the query is executed
+                boundStatement.bind( // here you are binding the 'boundStatement'
+                        toADD,username));
+        session.close();
+    
+    }
+    
+    public void deleteFollowing(String username,String followee){
+        
+        Session session = cluster.connect("instagrim");
+        PreparedStatement ps = session.prepare("UPDATE userprofiles SET following = following - ? WHERE login = ?");
+        Set<String> toDelete = new HashSet<>();
+        boolean add;
+        add = toDelete.add(followee);
+        BoundStatement boundStatement = new BoundStatement(ps);
+        session.execute( // this is where the query is executed
+                boundStatement.bind( // here you are binding the 'boundStatement'
+                        toDelete,username));
+        session.close();
+    
     }
     
     public boolean IsExistingUser(String username){
@@ -208,6 +265,8 @@ public class User {
         }
     }
     
+    
+   
     public java.util.UUID getProfilePic(String username) {
         Session session = cluster.connect("instagrim");
         ByteBuffer bImage = null;

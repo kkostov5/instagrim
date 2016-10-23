@@ -47,7 +47,8 @@ public final class Keyspaces {
                     + "      first_name text,\n"
                     + "      last_name text,\n"
                     + "      email text,\n"
-                    + "      picid uuid\n"
+                    + "      picid uuid,\n"
+                    + "      following set<text>\n"
                    // + "     addresses  map<text, frozen <address>>\n"
                     + "  );";
             String CreatePictureComments = "CREATE TABLE if not exists instagrim.piccomments (\n"
@@ -123,7 +124,7 @@ public final class Keyspaces {
                 session.execute(cqlQuery);
                 
             } catch (Exception et) {
-                System.out.println("Can't create Address Profile " + et);
+                System.out.println("Can't create Profile " + et);
             }
             session.close();
 

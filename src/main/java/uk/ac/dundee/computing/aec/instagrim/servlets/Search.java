@@ -51,7 +51,7 @@ public class Search extends HttpServlet {
         {
             response.sendRedirect("/Instagrim");
         }
-            else
+        else
         {
         RequestDispatcher rd=request.getRequestDispatcher("/Search.jsp");
 	rd.forward(request,response);
@@ -74,12 +74,13 @@ public class Search extends HttpServlet {
          us.setCluster(cluster);
          if (us.IsExistingUser(user)){
              System.out.println(user);
-             String path = "/Profile/"+user;
+             String path = "/Instagrim/Profile/"+user;
              System.out.println(path);
-             request.setAttribute("account",user);
-            RequestDispatcher rd=request.getRequestDispatcher(path);            
-            rd.forward(request, response);
-            //response.sendRedirect(path);
+             //HttpSession session=request.getSession();
+             //session.setAttribute("account",user);
+            //RequestDispatcher rd=request.getRequestDispatcher(path);            
+            //rd.forward(request, response);
+            response.sendRedirect(path);
             
         }else{
             request.setAttribute("error","Invalid Username");

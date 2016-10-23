@@ -27,6 +27,7 @@
             <li><a href="/Instagrim/Profile/<%=lg.getUsername()%>">Profile</a></li>
              <li><a href="/Instagrim/Upload">Upload</a></li>
              <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
+             <li><a href="/Instagrim/Following">Following</a></li>
              <li><a href="/Instagrim/Search">Search Users</a></li>
              <li><a href="/Instagrim/Logout">Logout</a></li>
              </ul></div><div id="body">
@@ -38,8 +39,8 @@
                         reader.onload = function (e) {
                             $('#blah')
                                     .attr('src', e.target.result)
-                                    .width(150)
-                                    .height(200);
+                                    .width(250)
+                                    .height(300);
                         };
 
                         reader.readAsDataURL(input.files[0]);
