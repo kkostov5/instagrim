@@ -37,13 +37,13 @@
                 <form method="POST" action="UserProfile">
                     <table>
                         <tr>
-                            <td>First Name</td><td> <input type="text" name="firstname" value="<%=prof.getFirstname()%>"></td>
+                            <td>First Name</td><td> <input type="text" name="firstname" value="<%=prof.getFirstname()%>" required></td>
                         </tr>
                         <tr>
-                            <td>Last Name</td><td> <input type="text" name="lastname" value="<%=prof.getLastname()%>"></td>
+                            <td>Last Name</td><td> <input type="text" name="lastname" value="<%=prof.getLastname()%>"required></td>
                         </tr>
                         <tr>
-                            <td>E-mail</td><td> <input type="text" name="email" value="<%=prof.getEmail()%>"></td>
+                            <td>E-mail</td><td> <input type="text" name="email" value="<%=prof.getEmail()%>"required></td>
                         </tr>
 
                     </table>
