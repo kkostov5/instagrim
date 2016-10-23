@@ -27,12 +27,13 @@ import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
 @WebServlet(name = "Search", urlPatterns = {"/Search"})
 public class Search extends HttpServlet {
 
-    
-    Cluster cluster=null;
+    Cluster cluster = null;
+
     public void init(ServletConfig config) throws ServletException {
         // TODO Auto-generated method stub
         cluster = CassandraHosts.getCluster();
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -45,16 +46,13 @@ public class Search extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session=request.getSession();
+        HttpSession session = request.getSession();
         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-        if(lg==null)
-        {
+        if (lg == null) {
             response.sendRedirect("/Instagrim");
-        }
-        else
-        {
-        RequestDispatcher rd=request.getRequestDispatcher("/Search.jsp");
-	rd.forward(request,response);
+        } else {
+            RequestDispatcher rd = request.getRequestDispatcher("/Search.jsp");
+            rd.forward(request, response);
         }
     }
 
@@ -69,22 +67,22 @@ public class Search extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         String user=request.getParameter("account");
-         User us = new User();
-         us.setCluster(cluster);
-         if (us.IsExistingUser(user)){
-             System.out.println(user);
-             String path = "/Instagrim/Profile/"+user;
-             System.out.println(path);
-             //HttpSession session=request.getSession();
-             //session.setAttribute("account",user);
+        String user = request.getParameter("account");
+        User us = new User();
+        us.setCluster(cluster);
+        if (us.IsExistingUser(user)) {
+            System.out.println(user);
+            String path = "/Instagrim/Profile/" + user;
+            System.out.println(path);
+            //HttpSession session=request.getSession();
+            //session.setAttribute("account",user);
             //RequestDispatcher rd=request.getRequestDispatcher(path);            
             //rd.forward(request, response);
             response.sendRedirect(path);
-            
-        }else{
-            request.setAttribute("error","Invalid Username");
-            RequestDispatcher rd=request.getRequestDispatcher("/Search.jsp");            
+
+        } else {
+            request.setAttribute("error", "Invalid Username");
+            RequestDispatcher rd = request.getRequestDispatcher("/Search.jsp");
             rd.include(request, response);
         }
     }
@@ -98,6 +96,5 @@ public class Search extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 
 }

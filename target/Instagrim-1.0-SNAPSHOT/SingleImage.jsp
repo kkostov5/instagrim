@@ -23,75 +23,71 @@
                 LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
             %>
             <ul>
-            <li><a href="/Instagrim/Profile/<%=lg.getUsername()%>">Profile</a></li>
-             <li><a href="/Instagrim/Upload">Upload</a></li>
-             <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
-             <li><a href="/Instagrim/Following">Following</a></li>
-             <li><a href="/Instagrim/Search">Search Users</a></li>
-             <li><a href="/Instagrim/Logout">Logout</a></li>
-             </ul></div><div id="body"><div class="gallery">
-            
-            <%
-                Pic p = (Pic) request.getAttribute("Picture");
-                java.util.List<Row> comments = (java.util.List<Row>) request.getAttribute("Comments");
-                if (p == null) {
-            %>
-            <p>No Pictures found</p>
+                <li><a href="/Instagrim/Profile/<%=lg.getUsername()%>">Profile</a></li>
+                <li><a href="/Instagrim/Upload">Upload</a></li>
+                <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
+                <li><a href="/Instagrim/Following">Following</a></li>
+                <li><a href="/Instagrim/Search">Search Users</a></li>
+                <li><a href="/Instagrim/Logout">Logout</a></li>
+            </ul></div><div id="body"><div class="gallery">
 
-            <%
-                        } else {%>
+                <%
+                    Pic p = (Pic) request.getAttribute("Picture");
+                    java.util.List<Row> comments = (java.util.List<Row>) request.getAttribute("Comments");
+                    if (p == null) {
+                %>
+                <p>No Pictures found</p>
 
-            <form method="POST"  action="Comments">
-                <table>
-                    <tr>
-                    <img src="/Instagrim/Thumb/<%=p.getSUUID()%>"></br>
-                    <%
-                        Boolean check = (Boolean) request.getAttribute("isUserPicture");
-                        if(check)
-                        {
-                            
-                    %>
-                   <input type="submit" name = "delete" value="Delete Picture" onClick="if (confirm('Are you sure you want to delete?')) { return true; } else { return false; }"></br>
-                    <%
-                        }if (comments != null) {
-                            int i = 0;
-                    
-                    
-                    
-                    %>
-                    <td>User</td> <td>Comment</td>
-                    <%
-                        Iterator<Row> iterator;
-                        iterator = comments.iterator();
-                        while (iterator.hasNext()) {
-                        Row row = (Row) iterator.next();
-                           // while (comments.length < i) {
+                <%
+            } else {%>
 
-                    %>
-                    <tr><td><%=row.getString("user")%></td> <td><%=row.getString("comment")%></td></tr>
-                    <%
-                                    i++;
-                                }
-                            }%>
-                       
-                    <td>Comment</td> <td><input type="textbox" name="comment"></td>
-                </table>
-                <br/>
-                <input type="submit" value="Comment"> 
-            </form>
-<% }
-                    %>
-                 </div></div>
+                <form method="POST"  action="Comments">
+                    <table>
+                        <tr>
+                        <img src="/Instagrim/Thumb/<%=p.getSUUID()%>"></br>
+                        <%
+                            Boolean check = (Boolean) request.getAttribute("isUserPicture");
+                            if (check) {
+
+                        %>
+                        <input type="submit" name = "delete" value="Delete Picture" onClick="if (confirm('Are you sure you want to delete?')) {
+                                    return true;
+                                } else {
+                                    return false;
+                                }"></br>
+                        <%                        }
+                            if (comments != null) {
+                                int i = 0;
 
 
-        
-<!--<a href="/Instagrim/SingleImage.jsp" ><img src="/Instagrim/Thumb/<%//=p.getSUUID()%>"></a><br/>-->
+                        %>
+                        <td>User</td> <td>Comment</td>
+                        <%                        Iterator<Row> iterator;
+                            iterator = comments.iterator();
+                            while (iterator.hasNext()) {
+                                Row row = (Row) iterator.next();
+                                // while (comments.length < i) {
 
+                        %>
+                        <tr><td><%=row.getString("user")%></td> <td><%=row.getString("comment")%></td></tr>
+                        <%
+                                i++;
+                            }
+                        }%>
 
-    <div id="footer">
+                        <td>Comment</td> <td><input type="textbox" name="comment"></td>
+                    </table>
+                    <br/>
+                    <input type="submit" value="Comment"> 
+                </form>
+                <% }
+                %>
+            </div></div>
+
+        <div id="footer">
             <div>
-            <p>&COPY; Krasimir Kostov</p>
+                <p>&COPY; Krasimir Kostov</p>
             </div>
         </div>
-</body>
+    </body>
 </html>

@@ -40,6 +40,7 @@ import uk.ac.dundee.computing.aec.instagrim.lib.*;
 import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
 import uk.ac.dundee.computing.aec.instagrim.stores.Profile;
 //import uk.ac.dundee.computing.aec.stores.TweetStore;
+
 public class PicModel {
 
     Cluster cluster;
@@ -77,7 +78,7 @@ public class PicModel {
                 BoundStatement boundStatement = new BoundStatement(ps);
                 session.execute( // this is where the query is executed
                         boundStatement.bind( // here you are binding the 'boundStatement'
-                                picid,user));
+                                picid, user));
             }
 
             PreparedStatement psInsertPic = session.prepare("insert into pics ( picid, image,thumb,processed, user, interaction_time,imagelength,thumblength,processedlength,type,name) values(?,?,?,?,?,?,?,?,?,?,?)");
@@ -166,8 +167,8 @@ public class PicModel {
         return Pics;
     }
 
-    public boolean isUserPicture(String username,java.util.UUID picid){
-        
+    public boolean isUserPicture(String username, java.util.UUID picid) {
+
         Session session = cluster.connect("instagrim");
         PreparedStatement ps = session.prepare("select picid from userpiclist where user =?");
         ResultSet rs = null;
@@ -181,26 +182,27 @@ public class PicModel {
             return false;
         } else {
             for (Row row : rs) {
-               
+
                 java.util.UUID picture = row.getUUID("picid");
-                if (picture.compareTo(picid) == 0)
+                if (picture.compareTo(picid) == 0) {
                     return true;
+                }
             }
-            
+
         }
-    return false;  
+        return false;
     }
-    
-    public void deletePicture(String username,java.util.UUID picid,boolean profile){
-        
+
+    public void deletePicture(String username, java.util.UUID picid, boolean profile) {
+
         System.out.println("Starting deletion");
         Session session = cluster.connect("instagrim");
         PreparedStatement ps = session.prepare("Delete From Pics where picid=?");
         BoundStatement boundStatement = new BoundStatement(ps);
-                session.execute( // this is where the query is executed
+        session.execute( // this is where the query is executed
                 boundStatement.bind( // here you are binding the 'boundStatement'
                         picid));
-                System.out.println("Deleted picture");
+        System.out.println("Deleted picture");
         PreparedStatement ps1 = session.prepare("Select user,pic_added from userpiclist where picid=? ALLOW FIlTERING");
         BoundStatement boundStatement1 = new BoundStatement(ps1);
         ResultSet rs = null;
@@ -212,25 +214,24 @@ public class PicModel {
             System.out.println("No Deletion returned");
         } else {
             for (Row row : rs) {
-               
+
                 String name = row.getString("user");
                 Date time = row.getTimestamp("pic_added");
-                System.out.println(name+time);
+                System.out.println(name + time);
                 System.out.println(username);
-                
-        if(name.equals(username))
-        {
-                System.out.println(name+time);
-                PreparedStatement ps4 = session.prepare("Delete From userpiclist where pic_added=? and user=?");
-                BoundStatement boundStatement4 = new BoundStatement(ps4);
-                session.execute( // this is where the query is executed
-                boundStatement4.bind( // here you are binding the 'boundStatement'
-                        time,username));
-                System.out.println("Deleted from profile");
-        }
+
+                if (name.equals(username)) {
+                    System.out.println(name + time);
+                    PreparedStatement ps4 = session.prepare("Delete From userpiclist where pic_added=? and user=?");
+                    BoundStatement boundStatement4 = new BoundStatement(ps4);
+                    session.execute( // this is where the query is executed
+                            boundStatement4.bind( // here you are binding the 'boundStatement'
+                                    time, username));
+                    System.out.println("Deleted from profile");
+                }
 
             }
-            
+
         }
         PreparedStatement ps5 = session.prepare("Delete from piccomments where picid=?");
         BoundStatement boundStatement5 = new BoundStatement(ps5);
@@ -239,18 +240,18 @@ public class PicModel {
                         picid));
         System.out.println("Deleted comments");
 
-        if(profile == true)
-        {
+        if (profile == true) {
             String remove = null;
-        PreparedStatement ps3 = session.prepare("update userprofiles set picid=? where login=?");
-        BoundStatement boundStatement3 = new BoundStatement(ps3);
-        session.execute( // this is where the query is executed
-                boundStatement3.bind( // here you are binding the 'boundStatement'
-                        remove,username));
-        System.out.println("Updated profile");
+            PreparedStatement ps3 = session.prepare("update userprofiles set picid=? where login=?");
+            BoundStatement boundStatement3 = new BoundStatement(ps3);
+            session.execute( // this is where the query is executed
+                    boundStatement3.bind( // here you are binding the 'boundStatement'
+                            remove, username));
+            System.out.println("Updated profile");
         }
         session.close();
     }
+
     public Pic getPic(int image_type, java.util.UUID picid) {
         Session session = cluster.connect("instagrim");
         ByteBuffer bImage = null;
@@ -309,11 +310,11 @@ public class PicModel {
 
     public java.util.List<Row> getComments(java.util.UUID picid) {
         Session session = cluster.connect("instagrim");
-        
+
         System.out.println(picid);
         java.util.List<Row> results = null;
         try {
-            
+
             ResultSet rs;
             PreparedStatement ps = null;
             ps = session.prepare("select user,comment from piccomments where picid =? ALLOW FILTERING");
@@ -322,7 +323,7 @@ public class PicModel {
                     boundStatement.bind( // here you are binding the 'boundStatement'
                             picid));
             session.close();
-            
+
             if (rs.isExhausted()) {
                 System.out.println("No Image returned");
                 return null;
@@ -332,8 +333,8 @@ public class PicModel {
                 for (Row row : rs) {
                  comment[i] = row.getString("user");
                  i++;*/
-                 results= rs.all();
-            //}
+                results = rs.all();
+                //}
                 /*
                 java.util.List<Row> results = rs.all();
                 Iterator numb = results.iterator();
@@ -346,7 +347,7 @@ public class PicModel {
                     i++;
                 }
                 return get;*/
-                
+
             }
         } catch (Exception et) {
             System.out.println("Can't get Comments " + et);// goooooooes herrreeeeee WHHWHWHWHYWYWYWYYWYWYYWYWYWYWYYW
@@ -356,19 +357,18 @@ public class PicModel {
         //session.close();
 
         //return null;
-
     }
 
-    public void setComment(java.util.UUID picid,String username, String comment) {
+    public void setComment(java.util.UUID picid, String username, String comment) {
         Session session = cluster.connect("instagrim");
 
-            PreparedStatement ps = null;
-            Date DateAdded = new Date();
-            ps = session.prepare("Insert into piccomments (user,comment,picid,pic_added) values(?,?,?,?)");
-            BoundStatement boundStatement = new BoundStatement(ps);
-            session.execute( // this is where the query is executed
-                    boundStatement.bind( // here you are binding the 'boundStatement'
-                            username,comment,picid,DateAdded));
+        PreparedStatement ps = null;
+        Date DateAdded = new Date();
+        ps = session.prepare("Insert into piccomments (user,comment,picid,pic_added) values(?,?,?,?)");
+        BoundStatement boundStatement = new BoundStatement(ps);
+        session.execute( // this is where the query is executed
+                boundStatement.bind( // here you are binding the 'boundStatement'
+                        username, comment, picid, DateAdded));
         session.close();
 
     }

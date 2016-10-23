@@ -5,7 +5,6 @@ package uk.ac.dundee.computing.aec.instagrim.servlets;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import com.datastax.driver.core.Cluster;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -29,15 +28,16 @@ import uk.ac.dundee.computing.aec.instagrim.stores.Profile;
  *
  * @author Krasi
  */
-@WebServlet(name = "Following",urlPatterns = {"/Following"})
+@WebServlet(name = "Following", urlPatterns = {"/Following"})
 public class Following extends HttpServlet {
-    Cluster cluster=null;
-    
-    
+
+    Cluster cluster = null;
+
     public void init(ServletConfig config) throws ServletException {
         // TODO Auto-generated method stub
         cluster = CassandraHosts.getCluster();
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -50,14 +50,11 @@ public class Following extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       HttpSession session=request.getSession();
+        HttpSession session = request.getSession();
         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-        if(lg==null)
-        {
+        if (lg == null) {
             response.sendRedirect("/Instagrim");
-        }
-            else
-        {
+        } else {
             PicModel tm = new PicModel();
             tm.setCluster(cluster);
             User user = new User();
@@ -67,14 +64,14 @@ public class Following extends HttpServlet {
             Profile prof = (Profile) session.getAttribute("Profile");
             for (String s : prof.getFollowing()) {
                 username.add(s);
-                System.out.println("Userasdfasegadf"+s);
+                System.out.println("Userasdfasegadf" + s);
                 Pics.add(user.getProfilePic(s));
-                
-                }
-            RequestDispatcher rd=request.getRequestDispatcher("/Following.jsp");            
+
+            }
+            RequestDispatcher rd = request.getRequestDispatcher("/Following.jsp");
             request.setAttribute("Pics", Pics);
             request.setAttribute("Usernames", username);
-            rd.forward(request,response);
+            rd.forward(request, response);
         }
     }
 
@@ -95,22 +92,19 @@ public class Following extends HttpServlet {
         System.out.println(value);
         System.out.println(username);
         System.out.println(username);
-        HttpSession session=request.getSession();
+        HttpSession session = request.getSession();
         Profile prof = (Profile) session.getAttribute("Profile");
-        User us=new User();
+        User us = new User();
         us.setCluster(cluster);
-        if("Follow".equals(value))
-        {
-            Set<String> stuff= prof.getFollowing();
+        if ("Follow".equals(value)) {
+            Set<String> stuff = prof.getFollowing();
             stuff.add(username);
             System.out.println(stuff);
             prof.setFollowing(stuff);
             us.addFollowing(prof.getUsername(), username);
-            
-        }
-        else if("Unfollow".equals(value))
-        {
-            Set<String> stuff= prof.getFollowing();
+
+        } else if ("Unfollow".equals(value)) {
+            Set<String> stuff = prof.getFollowing();
             stuff.remove(username);
             System.out.println(stuff);
             prof.setFollowing(stuff);
@@ -118,7 +112,7 @@ public class Following extends HttpServlet {
         }
 
         //session.setAttribute("account",username);
-        String path = "/Instagrim/Profile/"+username;
+        String path = "/Instagrim/Profile/" + username;
         System.out.println(path);
         response.sendRedirect(path);
     }

@@ -43,13 +43,13 @@ public final class Keyspaces {
                     + "  );";*/
             String CreateUserProfile = "CREATE TABLE if not exists instagrim.userprofiles (\n"
                     + "      login text PRIMARY KEY,\n"
-                     + "     password text,\n"
+                    + "     password text,\n"
                     + "      first_name text,\n"
                     + "      last_name text,\n"
                     + "      email text,\n"
                     + "      picid uuid,\n"
                     + "      following set<text>\n"
-                   // + "     addresses  map<text, frozen <address>>\n"
+                    // + "     addresses  map<text, frozen <address>>\n"
                     + "  );";
             String CreatePictureComments = "CREATE TABLE if not exists instagrim.piccomments (\n"
                     + "      user text ,\n"
@@ -58,8 +58,8 @@ public final class Keyspaces {
                     + "      pic_added timestamp, \n"
                     + "PRIMARY KEY (picid,pic_added)\n"
                     + ")WITH CLUSTERING ORDER BY (pic_added asc);";
-                 //   + "  Create index pictureid on instagrim.piccomments( picid );"
-                 //   + "  Create index user_name on instagrim.piccomments( user );";    
+            //   + "  Create index pictureid on instagrim.piccomments( picid );"
+            //   + "  Create index user_name on instagrim.piccomments( user );";    
             Session session = c.connect();
             try {
                 PreparedStatement statement = session
@@ -105,14 +105,14 @@ public final class Keyspaces {
             try {
                 //SimpleStatement cqlQuery1 = new SimpleStatement("DROP TABLE  instagrim.piccomments;");
                 //session.execute(cqlQuery1);
-                
+
                 SimpleStatement cqlQuery = new SimpleStatement(CreatePictureComments);
                 session.execute(cqlQuery);
                 //SimpleStatement cqlQuery2 = new SimpleStatement("CREATE INDEX pictureid on instagrim.piccomments( picid );");
                 //session.execute(cqlQuery2);
                 //SimpleStatement cqlQuery3 = new SimpleStatement("CREATE INDEX user_name on instagrim.piccomments( user );");
                 //session.execute(cqlQuery3);
-                
+
             } catch (Exception et) {
                 System.out.println("Can't create Picture Comments " + et);
             }
@@ -122,7 +122,7 @@ public final class Keyspaces {
                 //session.execute(cqlQuery1);
                 SimpleStatement cqlQuery = new SimpleStatement(CreateUserProfile);
                 session.execute(cqlQuery);
-                
+
             } catch (Exception et) {
                 System.out.println("Can't create Profile " + et);
             }

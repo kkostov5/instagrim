@@ -23,27 +23,24 @@ import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
 @WebServlet(name = "Upload", urlPatterns = {"/Upload"})
 public class Upload extends HttpServlet {
 
-   @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
-        
-        HttpSession session=request.getSession();
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        HttpSession session = request.getSession();
         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-        if(lg==null)
-        {
+        if (lg == null) {
             response.sendRedirect("/Instagrim");
-        }
-            else
-        {
-        RequestDispatcher rd=request.getRequestDispatcher("/upload.jsp");
-	rd.forward(request,response);
+        } else {
+            RequestDispatcher rd = request.getRequestDispatcher("/upload.jsp");
+            rd.forward(request, response);
         }
     }
-    
+
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
-        
-        RequestDispatcher rd=request.getRequestDispatcher("/Instagrim/Image");
-	rd.forward(request,response);
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        RequestDispatcher rd = request.getRequestDispatcher("/Instagrim/Image");
+        rd.forward(request, response);
     }
 
 }

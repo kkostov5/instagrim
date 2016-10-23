@@ -5,7 +5,6 @@ package uk.ac.dundee.computing.aec.instagrim.servlets;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -27,17 +26,17 @@ import uk.ac.dundee.computing.aec.instagrim.stores.Profile;
 public class Logout extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
-        
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         //HttpSession session=request.getSession();
         //session.invalidate();
         //response.sendRedirect("/Index");
-        
     }
+
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
-        
-        HttpSession session=request.getSession();
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        HttpSession session = request.getSession();
         session.invalidate();
         response.sendRedirect("/Instagrim");
     }
