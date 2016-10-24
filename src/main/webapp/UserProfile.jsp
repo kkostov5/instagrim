@@ -30,8 +30,8 @@
             </ul></div><div id="body">
 
             <%
-
-                if (request.getAttribute("pic") == null) {
+             
+            if (request.getAttribute("pic") == null) {
             %>
 
             <img src="/Instagrim/picture.jpg"/></br>
@@ -44,30 +44,31 @@
             First name: ${firstname}<br/>
             Last name: ${lastname}<br/>
             E-mail: ${email}<br/>
+            </div>
+            <%
+             Profile prof = (Profile) session.getAttribute("Profile");
+             if (prof.getUsername() == request.getAttribute("username")) {
+           %>
+            <button type="button"><a href="/Instagrim/Profile/<%=lg.getUsername()%>/EditProfile">Edit Profile</a></button>
         </div>
+        <%}
+else{
+%>
+        <button type="button"><a href="/Instagrim/Images/${username}">User's images</a></button>
+        <form method="POST" action="Following">
+            <input type="hidden" name="Followee" value="${username}">
+            <input type="submit" name="Follow" value="${follower}">
+        </form>
         <%
-            Profile prof = (Profile) session.getAttribute("Profile");
-            if (prof.getUsername() == request.getAttribute("username")) {
-        %>
-        <button type="button"><a href="/Instagrim/Profile/<%=lg.getUsername()%>/EditProfile">Edit Profile</a></button>
-    </div>
-    <%} else {
-    %>
-    <button type="button"><a href="/Instagrim/Images/${username}">User's images</a></button>
-    <form method="POST" action="Following">
-        <input type="hidden" name="Followee" value="${username}">
-        <input type="submit" name="Follow" value="${follower}">
-    </form>
-    <%
-        }
+}
+                
+%>
 
-    %>
-
-    <div id="footer">
-        <div>
-            <p>&COPY; Krasimir Kostov</p>
+        <div id="footer">
+            <div>
+                <p>&COPY; Krasimir Kostov</p>
+            </div>
         </div>
-    </div>
 
-</body>
+    </body>
 </html>

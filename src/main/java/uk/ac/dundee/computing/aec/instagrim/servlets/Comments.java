@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -28,49 +28,48 @@ import uk.ac.dundee.computing.aec.instagrim.stores.Pic;
  *
  * @author Krasi
  */
-@WebServlet(name = "SingleImage", urlPatterns = {"/Comments", "/Comments/*"})
-@MultipartConfig
+@WebServlet(name = "SingleImage", urlPatterns = {"/Comments","/Comments/*"})@MultipartConfig
 public class Comments extends HttpServlet {
-
     private Pic p;
     private Cluster cluster;
-
-    public void init(ServletConfig config) throws ServletException {
+ public void init(ServletConfig config) throws ServletException {
         // TODO Auto-generated method stub
         cluster = CassandraHosts.getCluster();
     }
 
-    /**
+ /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
      * response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
-        HttpSession session = request.getSession();
+        HttpSession session=request.getSession();
         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-        if (lg == null) {
+        if(lg==null)
+        {
             response.sendRedirect("/Instagrim");
-        } else {
-            String args[] = null;
-            args = Convertors.SplitRequestPath(request);
-            PicModel tm = new PicModel();
-            tm.setCluster(cluster);
-            String Image = args[2];
-            System.out.println(Image);
-            System.out.println(Image);
-            System.out.println(Image);
-            boolean isUserPicture = tm.isUserPicture(lg.getUsername(), java.util.UUID.fromString(Image));
-            p = tm.getPic(2, java.util.UUID.fromString(Image));
-            p.setUUID(java.util.UUID.fromString(Image));
-            java.util.List<Row> comments = tm.getComments(java.util.UUID.fromString(Image));
-            RequestDispatcher rd = request.getRequestDispatcher("/SingleImage.jsp");
-            request.setAttribute("isUserPicture", isUserPicture);
-            request.setAttribute("Picture", p);
-            request.setAttribute("Comments", comments);
-            rd.forward(request, response);
         }
+            else
+        {
+                String args[] = null;
+        args = Convertors.SplitRequestPath(request);
+        PicModel tm = new PicModel();
+        tm.setCluster(cluster);
+        String Image = args[2];
+        System.out.println(Image);
+        System.out.println(Image);
+        System.out.println(Image);
+        boolean isUserPicture = tm.isUserPicture(lg.getUsername(),java.util.UUID.fromString(Image));
+        p = tm.getPic(2,java.util.UUID.fromString(Image));
+        p.setUUID(java.util.UUID.fromString(Image));
+        java.util.List<Row> comments = tm.getComments(java.util.UUID.fromString(Image));
+        RequestDispatcher rd = request.getRequestDispatcher("/SingleImage.jsp");
+        request.setAttribute("isUserPicture",isUserPicture);
+        request.setAttribute("Picture", p);
+        request.setAttribute("Comments", comments);
+        rd.forward(request, response);
+                }
     }
-
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
      * response)
@@ -80,30 +79,35 @@ public class Comments extends HttpServlet {
         String delete = request.getParameter("delete");
         System.out.println(delete);
         PicModel tm = new PicModel();
-        HttpSession session = request.getSession();
+        HttpSession session=request.getSession();
         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
         tm.setCluster(cluster);
-        if (delete != null) {
+        if(delete!=null)
+        {
             Profile prof = (Profile) session.getAttribute("Profile");
-            if ((p.getSUUID()).equals(prof.getPic())) {
+            if((p.getSUUID()).equals(prof.getPic()))
+            {
                 tm.deletePicture(prof.getUsername(), java.util.UUID.fromString(p.getSUUID()), true);
                 prof.setPic(null);
-            } else {
+            }
+            else
+            {
                 tm.deletePicture(prof.getUsername(), java.util.UUID.fromString(p.getSUUID()), false);
             }
-            response.sendRedirect("/Instagrim/Images/" + lg.getUsername());
-        } else {
-            // PicModel tm = new PicModel();
-            //HttpSession session=request.getSession();
-            //LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-            tm.setCluster(cluster);
-            tm.setComment(java.util.UUID.fromString(p.getSUUID()), lg.getUsername(), request.getParameter("comment"));
-            //RequestDispatcher rd = request.getRequestDispatcher("/Home");
-            //rd.forward(request, response);
-
-            response.sendRedirect("/Instagrim/Comments/" + p.getSUUID());
+            response.sendRedirect("/Instagrim/Images/"+lg.getUsername());
         }
-
+        else{
+       // PicModel tm = new PicModel();
+        //HttpSession session=request.getSession();
+        //LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+        tm.setCluster(cluster);
+        tm.setComment(java.util.UUID.fromString(p.getSUUID()), lg.getUsername(), request.getParameter("comment"));
+        //RequestDispatcher rd = request.getRequestDispatcher("/Home");
+        //rd.forward(request, response);
+        
+        response.sendRedirect("/Instagrim/Comments/"+p.getSUUID());
+        }
+        
     }
 
 }

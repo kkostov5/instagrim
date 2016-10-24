@@ -24,32 +24,32 @@
                     if (lg.getlogedin()) {
             %>
             <ul>
-                <li><a href="/Instagrim/Profile/<%=lg.getUsername()%>">Profile</a></li>
-                <li><a href="/Instagrim/Upload">Upload</a></li>
-                <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
-                <li><a href="/Instagrim/Following">Following</a></li>
-                <li><a href="/Instagrim/Search">Search Users</a></li>
-                <li><a href="/Instagrim/Logout">Logout</a></li>
-            </ul></div><div id="body"></div>
-            <%}
-            } else {
-            %>
-
-        <ul>
-            <li><a href="/Instagrim/Register">Register</a></li>
-            <li><a href="/Instagrim/Login">Login</a></li>
-        </ul></div>
-    <div id="body">
-    </div>
-    <%
+            <li><a href="/Instagrim/Profile/<%=lg.getUsername()%>">Profile</a></li>
+             <li><a href="/Instagrim/Upload">Upload</a></li>
+             <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
+             <li><a href="/Instagrim/Following">Following</a></li>
+             <li><a href="/Instagrim/Search">Search Users</a></li>
+             <li><a href="/Instagrim/Logout">Logout</a></li>
+             </ul></div><div id="body"></div>
+                <%}
+                } else {
+                %>
+            
+                <ul>
+                    <li><a href="/Instagrim/Register">Register</a></li>
+                    <li><a href="/Instagrim/Login">Login</a></li>
+                </ul></div>
+                <div id="body">
+            </div>
+                <%
                     }%>
-
-
-    <div id="footer">
-        <div>
+                   
+        
+        <div id="footer">
+            <div>
             <p>&COPY; Krasimir Kostov</p>
+            </div>
         </div>
-    </div>
 
-</body>
+    </body>
 </html>

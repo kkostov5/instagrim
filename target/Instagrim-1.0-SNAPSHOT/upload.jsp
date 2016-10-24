@@ -24,13 +24,13 @@
                 LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
             %>
             <ul>
-                <li><a href="/Instagrim/Profile/<%=lg.getUsername()%>">Profile</a></li>
-                <li><a href="/Instagrim/Upload">Upload</a></li>
-                <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
-                <li><a href="/Instagrim/Following">Following</a></li>
-                <li><a href="/Instagrim/Search">Search Users</a></li>
-                <li><a href="/Instagrim/Logout">Logout</a></li>
-            </ul></div><div id="body">
+            <li><a href="/Instagrim/Profile/<%=lg.getUsername()%>">Profile</a></li>
+             <li><a href="/Instagrim/Upload">Upload</a></li>
+             <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
+             <li><a href="/Instagrim/Following">Following</a></li>
+             <li><a href="/Instagrim/Search">Search Users</a></li>
+             <li><a href="/Instagrim/Logout">Logout</a></li>
+             </ul></div><div id="body">
             <script type="text/javascript">
                 function readURL(input) {
                     if (input.files && input.files[0]) {
@@ -63,12 +63,12 @@
                 </form>
         </div>
 
-
-
-
+                   
+        
+        
         <div id="footer">
             <div>
-                <p>&COPY; Krasimir Kostov</p>
+            <p>&COPY; Krasimir Kostov</p>
             </div>
         </div>
     </body>

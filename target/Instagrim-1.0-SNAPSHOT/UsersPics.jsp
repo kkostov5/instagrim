@@ -22,44 +22,44 @@
                 LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
             %>
             <ul>
-                <li><a href="/Instagrim/Profile/<%=lg.getUsername()%>">Profile</a></li>
-                <li><a href="/Instagrim/Upload">Upload</a></li>
-                <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
-                <li><a href="/Instagrim/Following">Following</a></li>
-                <li><a href="/Instagrim/Search">Search Users</a></li>
-                <li><a href="/Instagrim/Logout">Logout</a></li>
-            </ul></div><div id="body"><div class="gallery">
+            <li><a href="/Instagrim/Profile/<%=lg.getUsername()%>">Profile</a></li>
+             <li><a href="/Instagrim/Upload">Upload</a></li>
+             <li><a href="/Instagrim/Images/<%=lg.getUsername()%>">Your Images</a></li>
+             <li><a href="/Instagrim/Following">Following</a></li>
+             <li><a href="/Instagrim/Search">Search Users</a></li>
+             <li><a href="/Instagrim/Logout">Logout</a></li>
+             </ul></div><div id="body"><div class="gallery">
                 <!--<li class="nav"><a href="/Instagrim/Images/majed">Sample Images</a></li>-->
-                <h1>Your Pics</h1>
-                <%
-                    java.util.LinkedList<Pic> lsPics = (java.util.LinkedList<Pic>) request.getAttribute("Pics");
-                    if (lsPics == null) {
-                %>
-                <p>No Pictures found</p>
-                <%
-                } else {
-                    int i = 0;
-                    Iterator<Pic> iterator;
-                    iterator = lsPics.iterator();
-                    while (iterator.hasNext()) {
-                        Pic p = (Pic) iterator.next();
+            <h1>Your Pics</h1>
+            <%
+                java.util.LinkedList<Pic> lsPics = (java.util.LinkedList<Pic>) request.getAttribute("Pics");
+                if (lsPics == null) {
+            %>
+            <p>No Pictures found</p>
+            <%
+            } else {
+                int i=0;
+                Iterator<Pic> iterator;
+                iterator = lsPics.iterator();
+                while (iterator.hasNext()) {
+                    Pic p = (Pic) iterator.next();
 
-                %>
-                <a href="/Instagrim/Comments/<%=p.getSUUID()%>"><img src="/Instagrim/Thumb/<%=p.getSUUID()%>"></a><br/>
-                <!--<a href="/Instagrim/SingleImage.jsp" ><img src="/Instagrim/Thumb/<%//=p.getSUUID()%>"></a><br/>-->
-                <%
-                            i++;
-                        }
+            %>
+            <a href="/Instagrim/Comments/<%=p.getSUUID()%>"><img src="/Instagrim/Thumb/<%=p.getSUUID()%>"></a><br/>
+            <!--<a href="/Instagrim/SingleImage.jsp" ><img src="/Instagrim/Thumb/<%//=p.getSUUID()%>"></a><br/>-->
+            <%
+                    i++;
                     }
+                }
                 %>
-            </div></div>
+    </div></div>
 
-
-
-        <div id="footer">
+        
+        
+    <div id="footer">
             <div>
-                <p>&COPY; Krasimir Kostov</p>
+            <p>&COPY; Krasimir Kostov</p>
             </div>
         </div>
-    </body>
+</body>
 </html>

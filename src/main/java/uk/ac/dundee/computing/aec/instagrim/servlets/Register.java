@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package uk.ac.dundee.computing.aec.instagrim.servlets;
 
 import com.datastax.driver.core.Cluster;
@@ -29,28 +30,27 @@ import uk.ac.dundee.computing.aec.instagrim.stores.LoggedIn;
  */
 @WebServlet(name = "Register", urlPatterns = {"/Register"})
 public class Register extends HttpServlet {
-
-    Cluster cluster = null;
-
+    Cluster cluster=null;
     public void init(ServletConfig config) throws ServletException {
         // TODO Auto-generated method stub
         cluster = CassandraHosts.getCluster();
     }
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        HttpSession session = request.getSession();
+
+@Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+        
+        HttpSession session=request.getSession();
         LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-        if (lg == null) {
-            RequestDispatcher rd = request.getRequestDispatcher("/register.jsp");
-            rd.forward(request, response);
-        } else {
-            response.sendRedirect("/Instagrim");
-        }
-
+                if (lg == null) {
+        RequestDispatcher rd=request.getRequestDispatcher("/register.jsp");
+	rd.forward(request,response);
+         } else {
+                        response.sendRedirect("/Instagrim");
+                    }
+        
     }
-
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -62,25 +62,30 @@ public class Register extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        String firstname = request.getParameter("firstname");
-        String lastname = request.getParameter("lastname");
-        String email = request.getParameter("email");
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        User us = new User();
+        
+        String firstname=request.getParameter("firstname");
+        String lastname=request.getParameter("lastname");
+        String email=request.getParameter("email");
+        String username=request.getParameter("username");
+        String password=request.getParameter("password");
+        User us=new User();
         us.setCluster(cluster);
-        if (us.IsExistingUser(username)) {
-            request.setAttribute("error", "Username is taken.");
-            RequestDispatcher rd = request.getRequestDispatcher("/register.jsp");
+        if(us.IsExistingUser(username))
+        {
+            request.setAttribute("error","Username is taken.");
+            RequestDispatcher rd=request.getRequestDispatcher("/register.jsp");            
             rd.include(request, response);
-        } else {
-            us.RegisterUser(firstname, lastname, email, username, password);
+        }
+        else 
+        {
+            us.RegisterUser(firstname,lastname,email,username, password);
             //RequestDispatcher rd=request.getRequestDispatcher("/Login");            
             //rd.forward(request,response);
             response.sendRedirect("/Instagrim");
         }
-
+        
+	
+        
     }
 
     /**
